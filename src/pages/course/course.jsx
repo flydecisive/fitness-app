@@ -1,5 +1,5 @@
 import styles from "./course.module.css";
 
 export function CoursePage() {
-  return;
+  return <div className={styles.wrapper}></div>;
 }
