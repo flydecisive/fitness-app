@@ -1,6 +1,7 @@
 :global(*) {
   margin: 0;
   padding: 0;
+  font-family: "Regular", Arial, Helvetica, sans-serif;
 }
 
 :global(.container) {
@@ -8,9 +9,10 @@
 }
 
 @font-face {
-  font-family: "StratosSkyeng";
-  src: url("./assets/fonts/Stratos-Regular.woff2") format("woff2"),
-    url("./assets/fonts/Stratos-Regular.woff") format("woff");
+  font-family: "Regular";
+  src: local("Stratos-Regular"),
+    url("./fonts/Stratos-Regular.woff2") format("woff2"),
+    url("./fonts/Stratos-Regular.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
