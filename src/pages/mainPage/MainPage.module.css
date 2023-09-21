@@ -1,7 +1,17 @@
 .main {
   background: #271a58;
 }
-.main_title {
+
+.content {
+  position: relative;
+}
+.content_header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.title {
   color: #fff;
   font-family: StratosSkyeng;
   font-size: 20px;
@@ -10,8 +20,9 @@
   line-height: 115%; /* 23px */
   letter-spacing: -0.05px;
   opacity: 0.5;
+  padding-bottom: 17px;
 }
-.main_subtitle {
+.subtitle {
   color: #f4f4ff;
   font-family: StratosSkyeng;
   font-size: 60px;
