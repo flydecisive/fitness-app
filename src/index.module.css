@@ -2,3 +2,16 @@
   margin: 0;
   padding: 0;
 }
+
+:global(.container) {
+  padding: 30px 140px 60px 140px;
+}
+
+@font-face {
+  font-family: "StratosSkyeng";
+  src: url("./assets/fonts/Stratos-Regular.woff2") format("woff2"),
+    url("./assets/fonts/Stratos-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

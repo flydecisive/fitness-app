@@ -1,5 +1,6 @@
 import styles from "./App.module.css";
 import AppRoutes from "./routes/routes";
+import "./css/styles.css";
 
 function App() {
   const isAllowed = true;
