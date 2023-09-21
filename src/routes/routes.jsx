@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router";
 import ProtectedRoute from "./protected-route";
+import { CoursePage } from "../pages/course/course";
 
 function AppRoutes({ isAllowed }) {
   return (
@@ -7,9 +8,10 @@ function AppRoutes({ isAllowed }) {
       <Route element={<ProtectedRoute isAllowed={isAllowed} />}>
         {/* Защищенные роуты */}
       </Route>
-    </Routes>
 
-    // Обычные роуты
+      <Route path="course/:id" element={<CoursePage />} />
+      {/* Обычные роуты */}
+    </Routes>
   );
 }
 
