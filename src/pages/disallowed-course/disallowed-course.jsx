@@ -3,16 +3,12 @@ import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import { ReactComponent as Banner } from "../../assets/img/yoga-banner.svg";
 import Heading from "./components/heading/heading";
 import Reason from "./components/reason/reason";
+import { reasonsText } from "../../consts";
+import RecordForm from "./components/record-form/record-form";
 
 export function DisallowedCoursePage() {
-  const reasons_text = [
-    "Давно хотели попробовать йогу, но не решались начать.",
-    "Хотите укрепить позвоночник, избавиться от болей в спине и суставах.",
-    "Ищете активность, полезную для тела и души.",
-  ];
-
-  const reasons = reasons_text.map((reason, index) => {
-    return <Reason number={index + 1} text={reason} />;
+  const reasons = reasonsText.map((reason, index) => {
+    return <Reason number={index + 1} text={reason} key={index} />;
   });
   return (
     <div className={`${styles.wrapper} container`}>
@@ -22,7 +18,9 @@ export function DisallowedCoursePage() {
       </div>
       <div>
         <Heading text={"Подойдет для вас, если:"} />
-        <div className={styles["content-container"]}>{reasons}</div>
+        <div className={`${styles["content-container"]} ${styles.reasons}`}>
+          {reasons}
+        </div>
       </div>
       <div>
         <Heading text={"Направления:"} />
@@ -43,6 +41,13 @@ export function DisallowedCoursePage() {
           </div>
         </div>
       </div>
+      <p className={`${styles.text} small-text`}>
+        Благодаря комплексному воздействию упражнений происходит проработка всех
+        групп мышц, тренировка суставов, улучшается циркуляция крови. Кроме
+        того, упражнения дарят отличное настроение, заряжают бодростью и
+        помогают противостоять стрессам.
+      </p>
+      <RecordForm />
     </div>
   );
 }
