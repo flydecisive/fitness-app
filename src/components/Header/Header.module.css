@@ -17,7 +17,14 @@
   background: #140d40;
   color: #fff;
   text-align: center;
-  font-family: StratosSkyeng;
   font-size: 16px;
   line-height: 24px; /* 150% */
+}
+.button:hover {
+  background: #2d1f79;
+  transition: 0.5s;
+}
+.button:active {
+  background: #3b29a1;
+  transition: 0.5s;
 }

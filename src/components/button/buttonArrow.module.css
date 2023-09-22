@@ -1,0 +1,38 @@
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: fit-content;
+}
+.button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  padding: 0 24px;
+  width: fit-content;
+  height: 52px;
+  border-radius: 46px;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.05px;
+  background: #c7e957;
+  align-content: center;
+}
+
+.button::after {
+  padding-left: 5px;
+  content: "↑";
+  font-weight: 500;
+}
+
+.button:hover {
+  background: #daf289;
+  transition: 0.5s;
+}
+.button:active {
+  background: #ebffab;
+  transition: 0.2s;
+}
