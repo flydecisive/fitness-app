@@ -15,5 +15,24 @@
   display: flex;
   flex-flow: column wrap;
   align-items: center;
+  justify-content: space-between;
   padding: 33px 47px 47px 41px;
+  box-sizing: border-box;
+}
+
+.inputs_container {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  gap: 38px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.buttons_container {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  gap: 20px;
+  box-sizing: border-box;
 }

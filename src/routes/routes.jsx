@@ -13,6 +13,7 @@ function AppRoutes({ isAllowed }) {
 
       <Route path="/" element={<MainPage />} />
       <Route path="/login" element={<AuthorizationPage />} />
+      <Route path="/register" element={<AuthorizationPage />} />
 
       <Route path="course/:id" element={<CoursePage />} />
       {/* Обычные роуты */}
