@@ -13,7 +13,7 @@ const MainPage = () => {
   return (
     <section className={styles.main}>
       <div className="container">
-        <Header />
+        <Header color="white" />
         <div className={styles.content}>
           <div className={styles.content_header}>
             <div>
