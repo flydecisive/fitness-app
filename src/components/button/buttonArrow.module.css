@@ -1,4 +1,4 @@
-.box {
+.box {  
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,12 +20,6 @@
   letter-spacing: -0.05px;
   background: #c7e957;
   align-content: center;
-}
-
-.button::after {
-  padding-left: 5px;
-  content: "↑";
-  font-weight: 500;
 }
 
 .button:hover {
