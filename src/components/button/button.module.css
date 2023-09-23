@@ -1,5 +1,7 @@
+
 .button {
-  width: 278px;
+  padding: 0 24px;
+  width: fit-content;
   height: 52px;
   border-radius: 46px;
   font-family: "Stratos";
