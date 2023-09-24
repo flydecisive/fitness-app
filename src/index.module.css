@@ -8,6 +8,15 @@
   padding: 30px 140px 60px 140px;
 }
 
+:global(.small-text) {
+  color: #000;
+  font-family: "Regular", Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px;
+}
+
 @font-face {
   font-family: "Regular";
   src: local("Stratos-Regular"),

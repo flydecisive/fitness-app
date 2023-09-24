@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router";
 import ProtectedRoute from "./protected-route";
-import { CoursePage } from "../pages/course/course";
+import { DisallowedCoursePage } from "../pages/disallowed-course/disallowed-course";
 import MainPage from "../pages/mainPage/MainPage";
 import AuthorizationPage from "../pages/authorization/authorization";
 import ProfilePage from "../pages/profilePage/ProfilePage";
