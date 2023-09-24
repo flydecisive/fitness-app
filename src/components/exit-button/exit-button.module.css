@@ -1,0 +1,20 @@
+.user {
+  color: #000;
+  font-family: "Regular", Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px; /* 133.333% */
+  letter-spacing: -0.1px;
+}
+
+.wrapper {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.button {
+  background-color: transparent;
+  border: none;
+}
