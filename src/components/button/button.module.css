@@ -1,8 +1,10 @@
 .button {
-  width: 278px;
+  cursor: pointer;
+  padding: 0 24px;
+  width: fit-content;
   height: 52px;
   border-radius: 46px;
-  font-family: "Stratos";
+
   font-size: 18px;
   font-style: normal;
   font-weight: 400;
