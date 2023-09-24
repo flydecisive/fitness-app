@@ -6,7 +6,7 @@ function ExitButton({ userName }) {
     <div className={styles.wrapper}>
       <p className={styles.user}>{userName}</p>
       <button className={styles.button}>
-        <Exit />
+        <Exit className={styles.svg} />
       </button>
     </div>
   );

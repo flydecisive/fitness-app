@@ -8,7 +8,7 @@ const Header = ({ color }) => {
   return (
     <div className={styles.header}>
       <Logo fill={color} />
-      {location === "/profile" ? (
+      {location === "/profile" || location === "/course" ? (
         <ExitButton userName={"Сергей"} />
       ) : (
         <button className={styles.button}>Войти</button>
