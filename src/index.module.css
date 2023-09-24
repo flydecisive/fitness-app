@@ -8,6 +8,10 @@
   padding: 30px 140px 60px 140px;
 }
 
+:global(button) {
+  cursor: pointer;
+}
+
 :global(.small-text) {
   color: #000;
   font-family: "Regular", Arial, Helvetica, sans-serif;
