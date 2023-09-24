@@ -1,10 +1,10 @@
 import styles from "./disallowed-course.module.css";
-import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import { ReactComponent as Banner } from "../../assets/img/yoga-banner.svg";
 import Heading from "./components/heading/heading";
 import Reason from "./components/reason/reason";
 import { reasonsText } from "../../consts";
 import RecordForm from "./components/record-form/record-form";
+import Header from "../../components/Header/Header";
 
 export function DisallowedCoursePage() {
   const reasons = reasonsText.map((reason, index) => {
@@ -12,7 +12,7 @@ export function DisallowedCoursePage() {
   });
   return (
     <div className={`${styles.wrapper} container`}>
-      <Logo fill="black" />
+      <Header />
       <div className={styles.banner}>
         <Banner className={styles.svg} />
       </div>

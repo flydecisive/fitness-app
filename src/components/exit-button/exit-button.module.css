@@ -18,3 +18,7 @@
   background-color: transparent;
   border: none;
 }
+
+.svg:hover {
+  opacity: 0.5;
+}
