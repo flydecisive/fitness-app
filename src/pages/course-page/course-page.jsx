@@ -1,17 +1,20 @@
 import styles from "./course-page.module.css";
 import Header from "../../components/Header/Header";
 import Button from "../../components/button/button";
+import ProgressForm from "../../components/progress-form/progress-form";
+import { useState } from "react";
 
 function CoursePage() {
+  const [show, setShow] = useState(false);
+
   return (
-    <div className={`${styles.wrapper} container`}>
+    <div className={`container`}>
       <Header />
       <h2 className={styles.heading}>Йога</h2>
       <div className={styles.path}>
         Красота и здоровье / Йога на каждый день / 2 день
       </div>
       <div className={styles.video}>
-        {/* <img src="../../assets/img/video.png" alt="video" /> */}
         <video controls>
           <source src="" type="video/mp4" />
           <source src="" type="video/webm" />
@@ -25,7 +28,12 @@ function CoursePage() {
             <li>Наклон назад (10 повторений)</li>
             <li>Поднятие ног, согнутых в коленях (5 повторений)</li>
           </ul>
-          <Button text={"Заполнить свой прогресс"} color={"purple"} />
+          <Button
+            text={"Заполнить свой прогресс"}
+            color={"purple"}
+            onClick={() => setShow(true)}
+          />
+          <ProgressForm show={show} setShow={setShow} />
         </div>
         <div className={styles.progress}>
           <h3 className={`${styles.title} ${styles["title-margin"]}`}>
