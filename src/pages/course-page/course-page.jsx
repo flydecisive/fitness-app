@@ -3,6 +3,7 @@ import Header from "../../components/Header/Header";
 import Button from "../../components/button/button";
 import ProgressForm from "../../components/progress-form/progress-form";
 import { useState } from "react";
+import Congrat from "../../components/congrat/congrat";
 
 function CoursePage() {
   const [show, setShow] = useState(false);
@@ -34,6 +35,7 @@ function CoursePage() {
             onClick={() => setShow(true)}
           />
           <ProgressForm show={show} setShow={setShow} />
+          {/* <Congrat /> */}
         </div>
         <div className={styles.progress}>
           <h3 className={`${styles.title} ${styles["title-margin"]}`}>
