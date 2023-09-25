@@ -30,7 +30,6 @@
 
 .progress-container {
   display: grid;
-  /* row-gap: 26px; */
   justify-content: space-between;
   align-items: center;
   grid-template-columns: repeat(2, 1fr);
@@ -62,27 +61,4 @@
 .list {
   margin-bottom: 40px;
   max-width: 430px;
-}
-
-.progress-bar {
-  width: 278px;
-  height: 36px;
-}
-
-.blue {
-  border-radius: 22px;
-  border: 2px solid #565eef;
-  background: #edecff;
-}
-
-.orange {
-  border-radius: 22px;
-  border: 2px solid #ff6d00;
-  background: #fff2e0;
-}
-
-.purple {
-  border-radius: 22px;
-  border: 2px solid #9a48f1;
-  background: #f9ebff;
 }
