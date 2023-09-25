@@ -4,6 +4,7 @@ import Button from "../../components/button/button";
 import ProgressForm from "../../components/progress-form/progress-form";
 import { useState } from "react";
 import Congrat from "../../components/congrat/congrat";
+import ExerciseProgress from "../../components/exercise-progress/exercise-progress";
 
 function CoursePage() {
   const [show, setShow] = useState(false);
@@ -43,11 +44,23 @@ function CoursePage() {
           </h3>
           <div className={`${styles["progress-container"]} small-text`}>
             <p>Наклон вперед</p>
-            <div className={`${styles["progress-bar"]} ${styles.blue}`}></div>
+            <ExerciseProgress
+              color={"#565eef"}
+              value={30}
+              bgColor={"#edecff"}
+            />
             <p>Наклон назад</p>
-            <div className={`${styles["progress-bar"]} ${styles.orange}`}></div>
+            <ExerciseProgress
+              color={"#ff6d00"}
+              value={45}
+              bgColor={"#fff2e0"}
+            />
             <p>Поднятие ног, согнутых в коленях</p>
-            <div className={`${styles["progress-bar"]} ${styles.purple}`}></div>
+            <ExerciseProgress
+              color={"#9a48f1"}
+              value={80}
+              bgColor={"#f9ebff"}
+            />
           </div>
         </div>
       </div>
