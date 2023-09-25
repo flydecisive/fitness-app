@@ -46,7 +46,7 @@ function CoursePage() {
             <p>Наклон вперед</p>
             <ExerciseProgress
               color={"#565eef"}
-              value={30}
+              value={40}
               bgColor={"#edecff"}
             />
             <p>Наклон назад</p>

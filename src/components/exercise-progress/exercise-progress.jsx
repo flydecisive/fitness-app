@@ -13,12 +13,14 @@ function ExerciseProgress({ color, value, bgColor }) {
     height: "100%",
     width: `${value}%`,
     backgroundColor: color,
-    borderRadius: "inherit",
+    borderTopLeftRadius: "inherit",
+    borderBottomLeftRadius: "inherit",
     textAlign: "right",
   };
 
   const labelStyles = {
-    paddingRight: 20,
+    marginRight: 5,
+    marginLeft: 10,
     color: "white",
     fontWeight: "bold",
   };
