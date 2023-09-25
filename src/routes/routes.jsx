@@ -15,7 +15,7 @@ function AppRoutes({ isAllowed }) {
       <Route path="/course" element={<CoursePage />} />
       <Route path="/" element={<MainPage />} />
       <Route path="/login" element={<AuthorizationPage />} />
-      <Route path="/register" element={<AuthorizationPage />} />
+      <Route path="/registration" element={<AuthorizationPage />} />
       <Route path="/profile" element={<ProfilePage />} />
       <Route path="/course/:id" element={<DisallowedCoursePage />} />
       {/* Обычные роуты */}
