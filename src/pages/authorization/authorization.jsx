@@ -1,5 +1,6 @@
 import styles from "./authorization.module.css";
-import { ReactComponent as Logo } from "../../assets/img/logo.svg";
+// import { ReactComponent as Logo } from "../../assets/img/logo.svg";
+import Logo from "../../components/logo/logo";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
 import { useLocation } from "react-router";

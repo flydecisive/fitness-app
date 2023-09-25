@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./progress-form.module.css";
 import Button from "../button/button";
 import Input from "../input/input";
