@@ -1,3 +1,7 @@
+.main {
+  position: relative;
+}
+
 .content_profile {
   display: flex;
   align-items: flex-start;
