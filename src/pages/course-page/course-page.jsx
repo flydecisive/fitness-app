@@ -8,6 +8,7 @@ import ExerciseProgress from "../../components/exercise-progress/exercise-progre
 
 function CoursePage() {
   const [show, setShow] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   return (
     <div className={`container`}>
@@ -35,7 +36,11 @@ function CoursePage() {
             color={"purple"}
             onClick={() => setShow(true)}
           />
-          <ProgressForm show={show} setShow={setShow} />
+          <ProgressForm
+            show={show}
+            setShow={setShow}
+            setProgress={setProgress}
+          />
           {/* <Congrat /> */}
         </div>
         <div className={styles.progress}>
@@ -45,20 +50,26 @@ function CoursePage() {
           <div className={`${styles["progress-container"]} small-text`}>
             <p>Наклон вперед</p>
             <ExerciseProgress
+              id="1"
               color={"#565eef"}
-              value={40}
+              value={progress[1]}
+              max={10}
               bgColor={"#edecff"}
             />
             <p>Наклон назад</p>
             <ExerciseProgress
+              id="2"
               color={"#ff6d00"}
-              value={45}
+              value={progress[2]}
+              max={10}
               bgColor={"#fff2e0"}
             />
             <p>Поднятие ног, согнутых в коленях</p>
             <ExerciseProgress
+              id="3"
               color={"#9a48f1"}
-              value={80}
+              value={progress[3]}
+              max={5}
               bgColor={"#f9ebff"}
             />
           </div>

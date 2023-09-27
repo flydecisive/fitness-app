@@ -1,4 +1,4 @@
-function ExerciseProgress({ color, value, bgColor }) {
+function ExerciseProgress({ color, value, bgColor, max }) {
   const containerStyles = {
     width: "100%",
     height: 36,
@@ -11,10 +11,16 @@ function ExerciseProgress({ color, value, bgColor }) {
 
   const fillerStyles = {
     height: "100%",
-    width: `${value}%`,
+    width: `${value ? (value / max) * 100 : 0}%`,
     backgroundColor: color,
     borderTopLeftRadius: "inherit",
     borderBottomLeftRadius: "inherit",
+    borderTopRightRadius: `${
+      (value / max) * 100 === 100 ? "inherit" : "unset"
+    }`,
+    borderBottomRightRadius: `${
+      (value / max) * 100 === 100 ? "inherit" : "unset"
+    }`,
     textAlign: "right",
   };
 
@@ -28,7 +34,7 @@ function ExerciseProgress({ color, value, bgColor }) {
   return (
     <div style={containerStyles}>
       <div style={fillerStyles}>
-        <span style={labelStyles}>{`${value}%`}</span>
+        <span style={labelStyles}>{`${value ? (value / max) * 100 : 0}%`}</span>
       </div>
     </div>
   );
