@@ -1,88 +1,73 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Input from "../input/input";
 import styles from "./choseTraining.module.css";
 import activeItem from "../../assets/img/active_item.svg";
 
-const ChoseTraining = () => {
-  const [active, setActive] = useState(false);
+const ChoseTraining = ({ data, setShow, show }) => {
+  const [indexArray, setIndexArray] = useState([]);
 
-  const handleActive = () => {
-    setActive(!active);
+  const modalRef = useRef();
+  const closeModalOnClickOut = (e) => {
+    if (
+      show &&
+      e.target &&
+      modalRef.current &&
+      !modalRef.current.contains(e.target)
+    ) {
+      setShow(false);
+    }
   };
-  console.log(active);
+  console.log(show);
+  useEffect(() => {
+    document.body.addEventListener("mousedown", closeModalOnClickOut);
 
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.modal}>
-        <p className={styles.title}>Выберите тренировку</p>
-        <div className={styles["inputs_container"]}>
-          <div className={styles.item_box}>
-            {active ? (
-              <div className={styles.item_box_svg}>
-                <img src={activeItem} alt="active_item" />
+    return () => {
+      document.body.removeEventListener("mousedown", closeModalOnClickOut);
+    };
+  }, [show]);
+
+  const handleActive = (i) => {
+    if (indexArray.includes(i)) {
+      setIndexArray((indexArray) => indexArray.filter((el) => el !== i));
+    } else {
+      setIndexArray([...indexArray, i]);
+    }
+  };
+
+  if (show) {
+    return (
+      <div ref={modalRef} className={styles.wrapper}>
+        <div className={styles.modal}>
+          <p className={styles.title}>Выберите тренировку</p>
+          <div className={styles["inputs_container"]}>
+            {data.exercises.map((item, i) => (
+              <div className={styles.item_box}>
+                {indexArray.includes(i) ? (
+                  <div className={styles.item_box_svg}>
+                    <img src={activeItem} alt="active_item" />
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleActive(i);
+                  }}
+                  className={
+                    indexArray.includes(i) ? styles.item_active : styles.item
+                  }
+                >
+                  <p className={styles.item_title}>{item.title}</p>
+                  <p className={styles.item_subtitle}>{item.subtitle}</p>
+                </div>
               </div>
-            ) : (
-              ""
-            )}
-            <div
-              onClick={handleActive}
-              className={active ? styles.item_active : styles.item}
-            >
-              <p className={styles.item_title}>Утренняя практика</p>
-              <p className={styles.item_subtitle}>
-                Йога на каждый день / 1 день
-              </p>
-            </div>
-          </div>
-
-          <div className={styles.item_box}>
-            <div
-              onClick={handleActive}
-              className={active ? styles.item_active : styles.item}
-            >
-              <p className={styles.item_title}>Утренняя практика</p>
-              <p className={styles.item_subtitle}>
-                Йога на каждый день / 1 день
-              </p>
-            </div>
-          </div>
-          <div className={styles.item_box}>
-            <div
-              onClick={handleActive}
-              className={active ? styles.item_active : styles.item}
-            >
-              <p className={styles.item_title}>Утренняя практика</p>
-              <p className={styles.item_subtitle}>
-                Йога на каждый день / 1 день
-              </p>
-            </div>
-          </div>
-          <div className={styles.item_box}>
-            <div
-              onClick={handleActive}
-              className={active ? styles.item_active : styles.item}
-            >
-              <p className={styles.item_title}>Утренняя практика</p>
-              <p className={styles.item_subtitle}>
-                Йога на каждый день / 1 день
-              </p>
-            </div>
-          </div>
-          <div className={styles.item_box}>
-            <div
-              onClick={handleActive}
-              className={active ? styles.item_active : styles.item}
-            >
-              <p className={styles.item_title}>Утренняя практика</p>
-              <p className={styles.item_subtitle}>
-                Йога на каждый день / 1 день
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default ChoseTraining;

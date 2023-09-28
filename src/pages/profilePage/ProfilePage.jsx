@@ -1,9 +1,6 @@
 import Header from "../../components/Header/Header";
 import Button from "../../components/button/button";
 import styles from "./ProfilePage.module.css";
-import yoga from "../../assets/img/yoga.png";
-import stratching from "../../assets/img/stratching.png";
-import dance from "../../assets/img/dance.png";
 import ButtonArrow from "../../components/button/buttonArrow";
 import { useState } from "react";
 import PasswordEditing from "../../components/userDataEditing/PasswordEditing";
@@ -11,30 +8,103 @@ import LoginEditing from "../../components/userDataEditing/LoginEditing";
 import ChoseTraining from "../../components/choseTraining/choseTraining";
 
 const ProfilePage = () => {
+  const data = [
+    {
+      title: "Йога",
+      img: "/img/yoga.png",
+      exercises: [
+        {
+          title: "Утренняя практика",
+          subtitle: "Йога на каждый день / 1 день",
+        },
+        {
+          title: "Красота и здоровье",
+          subtitle: "Йога на каждый день / 2 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Йога на каждый день / 3 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Йога на каждый день / 4 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Йога на каждый день / 5 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Йога на каждый день / 6 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Йога на каждый день / 7 день",
+        },
+      ],
+    },
+    {
+      title: "Стретчинг",
+      img: "/img/stratching.png",
+      exercises: [
+        {
+          title: "Утренняя практика",
+          subtitle: "Стретчинг на каждый день / 1 день",
+        },
+        {
+          title: "Красота и здоровье",
+          subtitle: "Стретчинг на каждый день / 2 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Стретчинг на каждый день / 3 день",
+        },
+      ],
+    },
+    {
+      title: "Танцевальный фитнес",
+      img: "/img/dance.png",
+      exercises: [
+        {
+          title: "Утренняя практика",
+          subtitle: "Фитнес на каждый день / 1 день",
+        },
+        {
+          title: "Красота и здоровье",
+          subtitle: "Фитнес на каждый день / 2 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Фитнес на каждый день / 3 день",
+        },
+      ],
+    },
+  ];
+
   const [modalPasswordOpen, setModalPasswordOpen] = useState(false);
   const [modalLoginOpen, setModalLoginOpen] = useState(false);
   const [modalTrainingsOpen, setModalTrainingsOpen] = useState(false);
+  const [itemTrain, setItemTrain] = useState();
+  const [show, setShow] = useState(false);
 
   const handleOpenLogin = () => {
     setModalLoginOpen(true);
+    setShow(true);
   };
   const handleOpenPassword = () => {
     setModalPasswordOpen(true);
+    setShow(true);
   };
-  const handleOpenTrainings = () => {
+  const handleOpenTrainings = (i) => {
     setModalTrainingsOpen(true);
+    setItemTrain(data[i]);
+    setShow(true);
   };
-  console.log(modalTrainingsOpen);
+  console.log(itemTrain);
 
   return (
     <div className="container">
-      <div
-        className={
-          modalPasswordOpen || modalLoginOpen || modalTrainingsOpen
-            ? "container-opacity"
-            : ""
-        }
-      >
+      <div className={show ? "container-opacity" : ""}>
         <Header color="black" />
         <div className={styles.content_profile}>
           <p className={styles.content_title}>Мой профиль</p>
@@ -58,42 +128,45 @@ const ProfilePage = () => {
         <div className={styles.content_profile}>
           <p className={styles.content_title}>Мои курсы</p>
           <div className={styles.content_main}>
-            <div onClick={handleOpenTrainings} className={styles.img_box}>
-              <p className={styles.img_title}>Йога</p>
-              <img className={styles.img} src={yoga} alt="yoga" />
-              <div className={styles.button}>
-                <ButtonArrow onClick={handleOpenTrainings} text="Перейти →" />
+            {data.map((item, i) => (
+              <div className={styles.img_box}>
+                <p className={styles.img_title}>{item.title}</p>
+                <img className={styles.img} src={item.img} alt="fitness_img" />
+                <div
+                  onClick={() => handleOpenTrainings(i)}
+                  className={styles.button}
+                >
+                  <ButtonArrow text="Перейти →" />
+                </div>
               </div>
-            </div>
-            <div className={styles.img_box}>
-              <p className={styles.img_title}>Стретчинг</p>
-              <img className={styles.img} src={stratching} alt="stratching" />
-              <div className={styles.button}>
-                <ButtonArrow onClick={handleOpenTrainings} text="Перейти →" />
-              </div>
-            </div>
-            <div className={styles.img_box}>
-              <p className={styles.img_title}>Танцевальный фитнес</p>
-              <img className={styles.img} src={dance} alt="dance" />
-              <div className={styles.button}>
-                <ButtonArrow onClick={handleOpenTrainings} text="Перейти →" />
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>
       <div>
         {modalPasswordOpen ? (
-          <PasswordEditing setModalPasswordOpen={setModalPasswordOpen} />
+          <PasswordEditing
+            setModalPasswordOpen={setModalPasswordOpen}
+            show={show}
+            setShow={setShow}
+          />
         ) : (
           ""
         )}
         {modalLoginOpen ? (
-          <LoginEditing setModalLoginOpen={setModalLoginOpen} />
+          <LoginEditing
+            setModalLoginOpen={setModalLoginOpen}
+            show={show}
+            setShow={setShow}
+          />
         ) : (
           ""
         )}
-        {modalTrainingsOpen ? <ChoseTraining /> : ""}
+        {modalTrainingsOpen ? (
+          <ChoseTraining data={itemTrain} setShow={setShow} show={show} />
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

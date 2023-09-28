@@ -54,6 +54,8 @@
 .img_box {
   position: relative;
   cursor: pointer;
+  width: 360px;
+  height: 480px;
 }
 .img_box:hover {
   opacity: 0.8;
