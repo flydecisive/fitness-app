@@ -1,16 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from "react";
 import Button from "../button/button";
 import Input from "../input/input";
 import Logo from "../logo/logo";
 import styles from "./LoginEditing.module.css";
 
-const LoginEditing = ({ setModalLoginOpen, show, setShow }) => {
+const LoginEditing = ({ show, setShow }) => {
   const closeModal = () => {
-    setModalLoginOpen(false);
     setShow(false);
   };
 
   const modalRefLogin = useRef();
+
   const closeModalOnClickOut = (e) => {
     if (
       show &&

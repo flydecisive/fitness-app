@@ -2,7 +2,7 @@ import Header from "../../components/Header/Header";
 import Button from "../../components/button/button";
 import styles from "./ProfilePage.module.css";
 import ButtonArrow from "../../components/button/buttonArrow";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PasswordEditing from "../../components/userDataEditing/PasswordEditing";
 import LoginEditing from "../../components/userDataEditing/LoginEditing";
 import ChoseTraining from "../../components/choseTraining/choseTraining";
@@ -100,7 +100,26 @@ const ProfilePage = () => {
     setItemTrain(data[i]);
     setShow(true);
   };
-  console.log(itemTrain);
+
+  useEffect(() => {
+    if (show === false) {
+      setModalLoginOpen(false);
+      setModalPasswordOpen(false);
+      setModalTrainingsOpen(false);
+    }
+  }, [show]);
+
+  function showModalContent() {
+    if (modalPasswordOpen) {
+      return <PasswordEditing show={show} setShow={setShow} />;
+    } else if (modalLoginOpen) {
+      return <LoginEditing show={show} setShow={setShow} />;
+    } else if (modalTrainingsOpen) {
+      return <ChoseTraining data={itemTrain} setShow={setShow} show={show} />;
+    } else {
+      return "";
+    }
+  }
 
   return (
     <div className="container">
@@ -129,7 +148,7 @@ const ProfilePage = () => {
           <p className={styles.content_title}>Мои курсы</p>
           <div className={styles.content_main}>
             {data.map((item, i) => (
-              <div className={styles.img_box}>
+              <div className={styles.img_box} key={i}>
                 <p className={styles.img_title}>{item.title}</p>
                 <img className={styles.img} src={item.img} alt="fitness_img" />
                 <div
@@ -143,31 +162,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
-      <div>
-        {modalPasswordOpen ? (
-          <PasswordEditing
-            setModalPasswordOpen={setModalPasswordOpen}
-            show={show}
-            setShow={setShow}
-          />
-        ) : (
-          ""
-        )}
-        {modalLoginOpen ? (
-          <LoginEditing
-            setModalLoginOpen={setModalLoginOpen}
-            show={show}
-            setShow={setShow}
-          />
-        ) : (
-          ""
-        )}
-        {modalTrainingsOpen ? (
-          <ChoseTraining data={itemTrain} setShow={setShow} show={show} />
-        ) : (
-          ""
-        )}
-      </div>
+      <div>{showModalContent()}</div>
     </div>
   );
 };

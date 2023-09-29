@@ -1,16 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from "react";
 import Button from "../button/button";
 import Input from "../input/input";
 import Logo from "../logo/logo";
 import styles from "./PasswordEditing.module.css";
 
-const PasswordEditing = ({ setModalPasswordOpen, show, setShow }) => {
+const PasswordEditing = ({ show, setShow }) => {
   const closeModal = () => {
-    setModalPasswordOpen(false);
     setShow(false);
   };
 
   const modalRefPassword = useRef();
+
   const closeModalOnClickOut = (e) => {
     if (
       show &&
@@ -21,7 +22,7 @@ const PasswordEditing = ({ setModalPasswordOpen, show, setShow }) => {
       setShow(false);
     }
   };
-  console.log(show);
+
   useEffect(() => {
     document.body.addEventListener("mousedown", closeModalOnClickOut);
 

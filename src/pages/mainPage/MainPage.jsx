@@ -6,7 +6,6 @@ import stratching from "../../assets/img/stratching.png";
 import dance from "../../assets/img/dance.png";
 import stap from "../../assets/img/stap.png";
 import bodyflex from "../../assets/img/bodyflex.png";
-import Button from "../../components/button/button";
 import ButtonArrow from "../../components/button/buttonArrow";
 
 const MainPage = () => {

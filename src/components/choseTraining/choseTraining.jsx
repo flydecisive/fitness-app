@@ -1,5 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
-import Input from "../input/input";
 import styles from "./choseTraining.module.css";
 import activeItem from "../../assets/img/active_item.svg";
 
@@ -17,7 +17,7 @@ const ChoseTraining = ({ data, setShow, show }) => {
       setShow(false);
     }
   };
-  console.log(show);
+
   useEffect(() => {
     document.body.addEventListener("mousedown", closeModalOnClickOut);
 
@@ -41,7 +41,7 @@ const ChoseTraining = ({ data, setShow, show }) => {
           <p className={styles.title}>Выберите тренировку</p>
           <div className={styles["inputs_container"]}>
             {data.exercises.map((item, i) => (
-              <div className={styles.item_box}>
+              <div className={styles.item_box} key={i}>
                 {indexArray.includes(i) ? (
                   <div className={styles.item_box_svg}>
                     <img src={activeItem} alt="active_item" />
