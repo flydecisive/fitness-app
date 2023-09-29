@@ -30,12 +30,12 @@ function AuthorizationPage() {
   // Авторизация
   const loginButtonHandler = (login, password) => {
     if (!login) {
-      console.log("Введите логин/пароль");
+      console.log("Введите E-mail/пароль");
       return;
     }
 
     if (!password) {
-      console.log("Введите логин/пароль");
+      console.log("Введите E-mail/пароль");
       return;
     }
 
@@ -46,7 +46,7 @@ function AuthorizationPage() {
         })
         .catch((err) => {
           if (err.message.includes("auth/invalid-login-credentials")) {
-            console.log("Не верный логин/пароль");
+            console.log("Не верный E-mail/пароль");
           }
         })
         .then((responseData) => {
@@ -58,15 +58,15 @@ function AuthorizationPage() {
   // Регистрация
   const registerButtonHandler = (login, password) => {
     if (!login) {
-      console.log("Введите логин/пароль");
+      console.log("Введите E-mail/пароль");
       return;
     } else if (login.length < 3) {
-      console.log("Введенный логин слишком короткий");
+      console.log("Введенный E-mail слишком короткий");
       return;
     }
 
     if (!password) {
-      console.log("Введите логин/пароль");
+      console.log("Введите E-mail/пароль");
       return;
     } else if (password.length < 6) {
       console.log("Введенный пароль слишком короткий");
@@ -117,7 +117,7 @@ function AuthorizationPage() {
             <>
               <Input
                 type={"text"}
-                placeholder={"Логин"}
+                placeholder={"E-mail"}
                 onInput={(e) => {
                   loginHandler(e);
                 }}
@@ -134,7 +134,7 @@ function AuthorizationPage() {
             <>
               <Input
                 type={"text"}
-                placeholder={"Логин"}
+                placeholder={"E-mail"}
                 onInput={(e) => {
                   loginHandler(e);
                 }}
