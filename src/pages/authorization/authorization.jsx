@@ -29,12 +29,14 @@ function AuthorizationPage() {
 
   // Авторизация
   const loginButtonHandler = (login, password) => {
-    if (login?.length === 0) {
+    if (!login) {
       console.log("Введите логин/пароль");
+      return;
     }
 
-    if (password?.length === 0) {
+    if (!password) {
       console.log("Введите логин/пароль");
+      return;
     }
 
     if (login && password) {
