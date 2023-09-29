@@ -7,7 +7,7 @@ import { useEffect, useRef } from "react";
 const values = [];
 
 function ProgressForm({ show, setShow, setProgress }) {
-  const modalRef = useRef();
+  const modalRefProgress = useRef();
 
   const inputHandler = (e) => {
     const id = e.target.id;
@@ -20,8 +20,8 @@ function ProgressForm({ show, setShow, setProgress }) {
     if (
       show &&
       e.target &&
-      modalRef.current &&
-      !modalRef.current.contains(e.target)
+      modalRefProgress.current &&
+      !modalRefProgress.current.contains(e.target)
     ) {
       setShow(false);
     }
@@ -37,7 +37,7 @@ function ProgressForm({ show, setShow, setProgress }) {
 
   if (show) {
     return (
-      <div ref={modalRef} className={styles.wrapper}>
+      <div ref={modalRefProgress} className={styles.wrapper}>
         <h2 className={styles.heading}>Мой прогресс</h2>
         <form className={styles.form}>
           <label htmlFor="#1">Сколько раз вы сделали наклоны вперед?</label>
