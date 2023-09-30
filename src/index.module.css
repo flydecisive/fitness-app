@@ -22,6 +22,10 @@
   height: 639px;
 }
 
+:global(.link) {
+  text-decoration: none;
+}
+
 :global(.small-text) {
   color: #000;
   font-family: "Regular", Arial, Helvetica, sans-serif;
