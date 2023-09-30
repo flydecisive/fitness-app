@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import Button from "../button/button";
 import Input from "../input/input";
 import Logo from "../logo/logo";
-import styles from "./PasswordEditing.module.css";
+import styles from "./password-editing.module.css";
 
 const PasswordEditing = ({ show, setShow }) => {
   const closeModal = () => {

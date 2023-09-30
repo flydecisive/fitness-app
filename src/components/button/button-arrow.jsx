@@ -1,4 +1,4 @@
-import styles from "./buttonArrow.module.css";
+import styles from "./button-arrow.module.css";
 
 const ButtonArrow = ({ text, reverse }) => {
   return (

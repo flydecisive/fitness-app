@@ -1,11 +1,11 @@
-import Header from "../../components/Header/Header";
+import Header from "../../components/header/header";
 import Button from "../../components/button/button";
-import styles from "./ProfilePage.module.css";
-import ButtonArrow from "../../components/button/buttonArrow";
+import styles from "./profile-page.module.css";
+import ButtonArrow from "../../components/button/button-arrow";
 import { useEffect, useState } from "react";
-import PasswordEditing from "../../components/userDataEditing/PasswordEditing";
-import LoginEditing from "../../components/userDataEditing/LoginEditing";
-import ChoseTraining from "../../components/choseTraining/choseTraining";
+import PasswordEditing from "../../components/user-data-editing/password-editing";
+import LoginEditing from "../../components/user-data-editing/login-editing";
+import ChoseTraining from "../../components/chose-training/chose-training";
 
 const ProfilePage = () => {
   const data = [
