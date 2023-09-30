@@ -1,18 +1,22 @@
 import styles from "./Header.module.css";
-// import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import Logo from "../logo/logo";
-import ExitButton from "../exit-button/exit-button";
 import { useLocation } from "react-router";
+import UserItem from "../user-item/user-item";
+import { NavLink } from "react-router-dom";
 
 const Header = ({ color }) => {
   const location = useLocation().pathname;
+
+  // Когда будет готова авторизация поменять логику показа кнопок
   return (
     <div className={styles.header}>
       <Logo color={color} />
       {location === "/profile" || location === "/course" ? (
-        <ExitButton userName={"Сергей"} />
+        <UserItem userName={"Сергей"} />
       ) : (
-        <button className={styles.button}>Войти</button>
+        <NavLink className="link" to="/login">
+          <button className={styles.button}>Войти</button>
+        </NavLink>
       )}
     </div>
   );

@@ -7,10 +7,13 @@ import { useLocation } from "react-router";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { signInUser, createUser } from "../../firebase";
+import PushNotice from "../../components/push-notice/push-notice";
 
 function AuthorizationPage() {
   const location = useLocation().pathname;
   const navigate = useNavigate();
+  const [showNotice, setShowNotice] = useState(false);
+  const [noticeText, setNoticeText] = useState("");
   const [login, setLogin] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
@@ -30,12 +33,14 @@ function AuthorizationPage() {
   // Авторизация
   const loginButtonHandler = (login, password) => {
     if (!login) {
-      console.log("Введите E-mail/пароль");
+      setNoticeText("Введите E-mail/пароль");
+      setShowNotice(true);
       return;
     }
 
     if (!password) {
-      console.log("Введите E-mail/пароль");
+      setNoticeText("Введите E-mail/пароль");
+      setShowNotice(true);
       return;
     }
 
@@ -46,6 +51,8 @@ function AuthorizationPage() {
         })
         .catch((err) => {
           if (err.message.includes("auth/invalid-login-credentials")) {
+            setNoticeText("Не верный E-mail/пароль");
+            setShowNotice(true);
             console.log("Не верный E-mail/пароль");
           }
         })
@@ -109,85 +116,92 @@ function AuthorizationPage() {
   };
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.modal}>
-        <Logo fill="black" />
-        <div className={styles["inputs_container"]}>
-          {location === "/login" ? (
-            <>
-              <Input
-                type={"text"}
-                placeholder={"E-mail"}
-                onInput={(e) => {
-                  loginHandler(e);
-                }}
-              />
-              <Input
-                type={"password"}
-                placeholder={"Пароль"}
-                onInput={(e) => {
-                  passwordHandler(e);
-                }}
-              />
-            </>
-          ) : (
-            <>
-              <Input
-                type={"text"}
-                placeholder={"E-mail"}
-                onInput={(e) => {
-                  loginHandler(e);
-                }}
-              />
-              <Input
-                type={"password"}
-                placeholder={"Пароль"}
-                onInput={(e) => {
-                  passwordHandler(e);
-                }}
-              />
-              <Input
-                type={"password"}
-                placeholder={"Повторите пароль"}
-                onInput={(e) => {
-                  confirmPasswordHandler(e);
-                }}
-              />
-            </>
-          )}
-        </div>
-        <div className={styles["buttons_container"]}>
-          {location === "/login" ? (
-            <>
-              <Button
-                text={"Войти"}
-                color={"purple"}
-                onClick={() => {
-                  loginButtonHandler(login, password);
-                }}
-              />
-              <Button
-                text={"Зарегистрироваться"}
-                color={"light"}
-                onClick={() => {
-                  navigate("/registration");
-                }}
-              />
-            </>
-          ) : (
-            <>
-              <Button
-                text={"Зарегистрироваться"}
-                color={"purple"}
-                onClick={() => {
-                  registerButtonHandler(login, password);
-                }}
-              />
-            </>
-          )}
+    <>
+      {showNotice ? (
+        <PushNotice text={noticeText} setShowNotice={setShowNotice} />
+      ) : (
+        ""
+      )}
+      <div className={styles.wrapper}>
+        <div className={styles.modal}>
+          <Logo fill="black" />
+          <div className={styles["inputs_container"]}>
+            {location === "/login" ? (
+              <>
+                <Input
+                  type={"text"}
+                  placeholder={"E-mail"}
+                  onInput={(e) => {
+                    loginHandler(e);
+                  }}
+                />
+                <Input
+                  type={"password"}
+                  placeholder={"Пароль"}
+                  onInput={(e) => {
+                    passwordHandler(e);
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <Input
+                  type={"text"}
+                  placeholder={"E-mail"}
+                  onInput={(e) => {
+                    loginHandler(e);
+                  }}
+                />
+                <Input
+                  type={"password"}
+                  placeholder={"Пароль"}
+                  onInput={(e) => {
+                    passwordHandler(e);
+                  }}
+                />
+                <Input
+                  type={"password"}
+                  placeholder={"Повторите пароль"}
+                  onInput={(e) => {
+                    confirmPasswordHandler(e);
+                  }}
+                />
+              </>
+            )}
+          </div>
+          <div className={styles["buttons_container"]}>
+            {location === "/login" ? (
+              <>
+                <Button
+                  text={"Войти"}
+                  color={"purple"}
+                  onClick={() => {
+                    loginButtonHandler(login, password);
+                  }}
+                />
+                <Button
+                  text={"Зарегистрироваться"}
+                  color={"light"}
+                  onClick={() => {
+                    navigate("/registration");
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <Button
+                  text={"Зарегистрироваться"}
+                  color={"purple"}
+                  onClick={() => {
+                    registerButtonHandler(login, password);
+                  }}
+                />
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
