@@ -4,7 +4,7 @@ import Heading from "./components/heading/heading";
 import Reason from "./components/reason/reason";
 import { reasonsText } from "../../consts";
 import RecordForm from "./components/record-form/record-form";
-import Header from "../../components/Header/Header";
+import Header from "../../components/header/header";
 
 export function DisallowedCoursePage() {
   const reasons = reasonsText.map((reason, index) => {

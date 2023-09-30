@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
-import styles from "./choseTraining.module.css";
+import styles from "./chose-training.module.css";
 import activeItem from "../../assets/img/active_item.svg";
 
 const ChoseTraining = ({ data, setShow, show }) => {

@@ -1,9 +1,9 @@
 import { Route, Routes } from "react-router";
 import ProtectedRoute from "./protected-route";
 import { DisallowedCoursePage } from "../pages/disallowed-course/disallowed-course";
-import MainPage from "../pages/mainPage/MainPage";
+import MainPage from "../pages/main-page/main-page";
 import AuthorizationPage from "../pages/authorization/authorization";
-import ProfilePage from "../pages/profilePage/ProfilePage";
+import ProfilePage from "../pages/profile-page/profile-page";
 import CoursePage from "../pages/course-page/course-page";
 
 function AppRoutes({ isAllowed }) {

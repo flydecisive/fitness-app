@@ -1,12 +1,7 @@
-import Header from "../../components/Header/Header";
+import Header from "../../components/header/header";
 import { ReactComponent as Sticker } from "../../assets/img/sale_sticker_1.svg";
-import styles from "./MainPage.module.css";
-import yoga from "../../assets/img/yoga.png";
-import stratching from "../../assets/img/stratching.png";
-import dance from "../../assets/img/dance.png";
-import stap from "../../assets/img/stap.png";
-import bodyflex from "../../assets/img/bodyflex.png";
-import ButtonArrow from "../../components/button/buttonArrow";
+import styles from "./main-page.module.css";
+import ButtonArrow from "../../components/button/button-arrow";
 
 const MainPage = () => {
   return (
@@ -26,26 +21,34 @@ const MainPage = () => {
           <div className={styles.content_main}>
             <div className={styles.img_box}>
               <p className={styles.img_title}>Йога</p>
-              <img className={styles.img} src={yoga} alt="yoga" />
+              <img className={styles.img} src="/img/yoga.png" alt="yoga" />
             </div>
             <div className={styles.img_box}>
               <p className={styles.img_title}>Стретчинг</p>
-              <img className={styles.img} src={stratching} alt="stratching" />
+              <img
+                className={styles.img}
+                src="/img/stratching.png"
+                alt="stratching"
+              />
             </div>
             <div className={styles.img_box}>
               <p className={styles.img_title}>Танцевальный фитнес</p>
-              <img className={styles.img} src={dance} alt="dance" />
+              <img className={styles.img} src="/img/dance.png" alt="dance" />
             </div>
             <div className={styles.img_box}>
               <p className={styles.img_title}>Степ-аэробика</p>
-              <img className={styles.img} src={stap} alt="stap" />
+              <img className={styles.img} src="/img/stap.png" alt="stap" />
             </div>
             <div className={styles.img_box}>
               <p className={styles.img_title}>Бодифлекс</p>
-              <img className={styles.img} src={bodyflex} alt="bodyflex" />
+              <img
+                className={styles.img}
+                src="/img/bodyflex.png"
+                alt="bodyflex"
+              />
             </div>
           </div>
-          <ButtonArrow text="Наверх" />
+          <ButtonArrow text="Наверх ↑" />
         </div>
       </div>
     </section>

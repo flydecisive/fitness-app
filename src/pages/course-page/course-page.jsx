@@ -1,5 +1,5 @@
 import styles from "./course-page.module.css";
-import Header from "../../components/Header/Header";
+import Header from "../../components/header/header";
 import Button from "../../components/button/button";
 import ProgressForm from "../../components/progress-form/progress-form";
 import { useState } from "react";
