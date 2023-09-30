@@ -45,7 +45,7 @@ function ProgressForm({ show, setShow, setProgress }) {
             type={"text"}
             placeholder={"Введите значение"}
             id="1"
-            onInput={(e) => inputHandler(e)}
+            onInput={(e) => inputHandler(e)}            
           />
         </form>
         <form className={styles.form}>
