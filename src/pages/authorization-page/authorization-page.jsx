@@ -1,4 +1,4 @@
-import styles from "./authorization.module.css";
+import styles from "./authorization-page.module.css";
 // import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import Logo from "../../components/logo/logo";
 import Button from "../../components/button/button";
@@ -53,11 +53,11 @@ function AuthorizationPage() {
           if (err.message.includes("auth/invalid-login-credentials")) {
             setNoticeText("Не верный E-mail/пароль");
             setShowNotice(true);
-            console.log("Не верный E-mail/пароль");
           }
         })
         .then((responseData) => {
-          console.log(responseData.email);
+          localStorage.setItem("uid", responseData?.uid);
+          navigate("/profile");
         });
     }
   };
@@ -65,26 +65,32 @@ function AuthorizationPage() {
   // Регистрация
   const registerButtonHandler = (login, password) => {
     if (!login) {
-      console.log("Введите E-mail/пароль");
+      setNoticeText("Введите E-mail/пароль");
+      setShowNotice(true);
       return;
     } else if (login.length < 3) {
-      console.log("Введенный E-mail слишком короткий");
+      setNoticeText("Введенный E-mail слишком короткий");
+      setShowNotice(true);
       return;
     }
 
     if (!password) {
-      console.log("Введите E-mail/пароль");
+      setNoticeText("Введите E-mail/пароль");
+      setShowNotice(true);
       return;
     } else if (password.length < 6) {
-      console.log("Введенный пароль слишком короткий");
+      setNoticeText("Введенный пароль слишком короткий");
+      setShowNotice(true);
       return;
     }
 
     if (!confirmPassword) {
-      console.log("Введите подтверждающий пароль");
+      setNoticeText("Введите подтверждающий пароль");
+      setShowNotice(true);
       return;
     } else if (confirmPassword.length < 6) {
-      console.log("Введенный пароль слишком короткий");
+      setNoticeText("Введенный пароль слишком короткий");
+      setShowNotice(true);
       return;
     }
 
@@ -96,20 +102,22 @@ function AuthorizationPage() {
           })
           .catch((err) => {
             if (err.message.includes("auth/invalid-email")) {
-              console.log("Введен невалидный email");
+              setNoticeText("Введен невалидный email");
+              setShowNotice(true);
               return;
             } else if (err.message.includes("auth/email-already-in-use")) {
-              console.log("Пользователь с таким email уже существует");
+              setNoticeText("Пользователь с таким email уже существует");
+              setShowNotice(true);
               return;
             }
-
-            console.log(err.message);
           })
           .then((responseData) => {
-            console.log(responseData?.email);
+            localStorage.setItem("uid", responseData?.uid);
+            navigate("/profile");
           });
       } else {
-        console.log("Введенные пароли не совпадают");
+        setNoticeText("Введенные пароли не совпадают");
+        setShowNotice(true);
         return;
       }
     }
