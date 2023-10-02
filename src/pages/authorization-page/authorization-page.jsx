@@ -22,6 +22,12 @@ function AuthorizationPage() {
   const [confirmPassword, setConfirmPassword] = useState();
 
   // написать функцию для toggleShow
+
+  const toggleNotice = (text) => {
+    setNoticeText(text);
+    setShowNotice(true);
+    setTimeout(hideNotice, 3000);
+  };
   // написать функцию setData
 
   const hideNotice = () => {
@@ -43,16 +49,14 @@ function AuthorizationPage() {
   // Авторизация
   const loginButtonHandler = (login, password) => {
     if (!login) {
-      setNoticeText("Введите E-mail/пароль");
-      setShowNotice(true);
-      setTimeout(hideNotice, 3000);
+      toggleNotice("Введите E-mail/пароль");
+
       return;
     }
 
     if (!password) {
-      setNoticeText("Введите E-mail/пароль");
-      setShowNotice(true);
-      setTimeout(hideNotice, 3000);
+      toggleNotice("Введите E-mail/пароль");
+
       return;
     }
 
@@ -63,9 +67,7 @@ function AuthorizationPage() {
         })
         .catch((err) => {
           if (err.message.includes("auth/invalid-login-credentials")) {
-            setNoticeText("Не верный E-mail/пароль");
-            setShowNotice(true);
-            setTimeout(hideNotice, 3000);
+            toggleNotice("Не верный E-mail/пароль");
           }
         })
         .then((responseData) => {
@@ -83,38 +85,32 @@ function AuthorizationPage() {
   // Регистрация
   const registerButtonHandler = (login, password) => {
     if (!login) {
-      setNoticeText("Введите E-mail/пароль");
-      setShowNotice(true);
-      setTimeout(hideNotice, 3000);
+      toggleNotice("Введите E-mail/пароль");
+
       return;
     } else if (login.length < 3) {
-      setNoticeText("Введенный E-mail слишком короткий");
-      setShowNotice(true);
-      setTimeout(hideNotice, 3000);
+      toggleNotice("Введенный E-mail слишком короткий");
+
       return;
     }
 
     if (!password) {
-      setNoticeText("Введите E-mail/пароль");
-      setShowNotice(true);
-      setTimeout(hideNotice, 3000);
+      toggleNotice("Введите E-mail/пароль");
+
       return;
     } else if (password.length < 6) {
-      setNoticeText("Введенный пароль слишком короткий");
-      setShowNotice(true);
-      setTimeout(hideNotice, 3000);
+      toggleNotice("Введенный пароль слишком короткий");
+
       return;
     }
 
     if (!confirmPassword) {
-      setNoticeText("Введите подтверждающий пароль");
-      setShowNotice(true);
-      setTimeout(hideNotice, 3000);
+      toggleNotice("Введите подтверждающий пароль");
+
       return;
     } else if (confirmPassword.length < 6) {
-      setNoticeText("Введенный пароль слишком короткий");
-      setShowNotice(true);
-      setTimeout(hideNotice, 3000);
+      toggleNotice("Введенный пароль слишком короткий");
+
       return;
     }
 
@@ -126,14 +122,12 @@ function AuthorizationPage() {
           })
           .catch((err) => {
             if (err.message.includes("auth/invalid-email")) {
-              setNoticeText("Введен невалидный email");
-              setShowNotice(true);
-              setTimeout(hideNotice, 3000);
+              toggleNotice("Введен невалидный email");
+
               return;
             } else if (err.message.includes("auth/email-already-in-use")) {
-              setNoticeText("Пользователь с таким email уже существует");
-              setShowNotice(true);
-              setTimeout(hideNotice, 3000);
+              toggleNotice("Пользователь с таким email уже существует");
+
               return;
             }
           })
@@ -147,9 +141,8 @@ function AuthorizationPage() {
             }
           });
       } else {
-        setNoticeText("Введенные пароли не совпадают");
-        setShowNotice(true);
-        setTimeout(hideNotice, 3000);
+        toggleNotice("Введенные пароли не совпадают");
+
         return;
       }
     }

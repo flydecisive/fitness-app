@@ -9,16 +9,13 @@ function App() {
   let isAllowed;
 
   useEffect(() => {
-    console.log(email);
-  }, [email]);
-
-  useEffect(() => {
     if ((uid !== undefined) & (uid !== "undefined") & (uid !== null)) {
       isAllowed = true;
     } else {
       isAllowed = false;
     }
   }, [uid]);
+
   return (
     <div className={styles.App}>
       <UserContext.Provider value={{ uid, setUid, email, setEmail }}>
