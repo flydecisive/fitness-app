@@ -3,6 +3,7 @@ import styles from "./authorization-page.module.css";
 import Logo from "../../components/logo/logo";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
+import { useUidContext } from "../../contexts/uid-context";
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router";
 import { useState } from "react";
@@ -10,6 +11,7 @@ import { signInUser, createUser } from "../../firebase";
 import PushNotice from "../../components/push-notice/push-notice";
 
 function AuthorizationPage() {
+  const { setUid } = useUidContext();
   const location = useLocation().pathname;
   const navigate = useNavigate();
   const [showNotice, setShowNotice] = useState(false);
@@ -17,6 +19,10 @@ function AuthorizationPage() {
   const [login, setLogin] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+
+  const hideNotice = () => {
+    setShowNotice(false);
+  };
 
   const loginHandler = (e) => {
     setLogin(e.target.value);
@@ -35,12 +41,14 @@ function AuthorizationPage() {
     if (!login) {
       setNoticeText("Введите E-mail/пароль");
       setShowNotice(true);
+      setTimeout(hideNotice, 3000);
       return;
     }
 
     if (!password) {
       setNoticeText("Введите E-mail/пароль");
       setShowNotice(true);
+      setTimeout(hideNotice, 3000);
       return;
     }
 
@@ -53,11 +61,15 @@ function AuthorizationPage() {
           if (err.message.includes("auth/invalid-login-credentials")) {
             setNoticeText("Не верный E-mail/пароль");
             setShowNotice(true);
+            setTimeout(hideNotice, 3000);
           }
         })
         .then((responseData) => {
           localStorage.setItem("uid", responseData?.uid);
-          navigate("/profile");
+          setUid(responseData?.uid);
+          if (responseData?.uid) {
+            navigate("/profile");
+          }
         });
     }
   };
@@ -67,30 +79,36 @@ function AuthorizationPage() {
     if (!login) {
       setNoticeText("Введите E-mail/пароль");
       setShowNotice(true);
+      setTimeout(hideNotice, 3000);
       return;
     } else if (login.length < 3) {
       setNoticeText("Введенный E-mail слишком короткий");
       setShowNotice(true);
+      setTimeout(hideNotice, 3000);
       return;
     }
 
     if (!password) {
       setNoticeText("Введите E-mail/пароль");
       setShowNotice(true);
+      setTimeout(hideNotice, 3000);
       return;
     } else if (password.length < 6) {
       setNoticeText("Введенный пароль слишком короткий");
       setShowNotice(true);
+      setTimeout(hideNotice, 3000);
       return;
     }
 
     if (!confirmPassword) {
       setNoticeText("Введите подтверждающий пароль");
       setShowNotice(true);
+      setTimeout(hideNotice, 3000);
       return;
     } else if (confirmPassword.length < 6) {
       setNoticeText("Введенный пароль слишком короткий");
       setShowNotice(true);
+      setTimeout(hideNotice, 3000);
       return;
     }
 
@@ -104,20 +122,26 @@ function AuthorizationPage() {
             if (err.message.includes("auth/invalid-email")) {
               setNoticeText("Введен невалидный email");
               setShowNotice(true);
+              setTimeout(hideNotice, 3000);
               return;
             } else if (err.message.includes("auth/email-already-in-use")) {
               setNoticeText("Пользователь с таким email уже существует");
               setShowNotice(true);
+              setTimeout(hideNotice, 3000);
               return;
             }
           })
           .then((responseData) => {
             localStorage.setItem("uid", responseData?.uid);
-            navigate("/profile");
+            setUid(responseData?.uid);
+            if (responseData?.uid) {
+              navigate("/profile");
+            }
           });
       } else {
         setNoticeText("Введенные пароли не совпадают");
         setShowNotice(true);
+        setTimeout(hideNotice, 3000);
         return;
       }
     }
