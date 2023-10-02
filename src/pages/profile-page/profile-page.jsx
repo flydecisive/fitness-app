@@ -6,8 +6,10 @@ import { useEffect, useState } from "react";
 import PasswordEditing from "../../components/user-data-editing/password-editing";
 import LoginEditing from "../../components/user-data-editing/login-editing";
 import ChoseTraining from "../../components/chose-training/chose-training";
+import { useEmailContext } from "../../contexts/user";
 
 const ProfilePage = () => {
+  const { email } = useEmailContext();
   const data = [
     {
       title: "Йога",
@@ -128,7 +130,7 @@ const ProfilePage = () => {
         <div className={styles.content_profile}>
           <p className={styles.content_title}>Мой профиль</p>
           <div className={styles.content_user}>
-            <p className={styles.content_user_item}>Логин: sergey.petrov96</p>
+            <p className={styles.content_user_item}>Логин: {email}</p>
             <p className={styles.content_user_item}>Пароль: ********</p>
           </div>
           <div className={styles.content_buttons}>

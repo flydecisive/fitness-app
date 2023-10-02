@@ -1,26 +1,29 @@
 import styles from "./App.module.css";
 import AppRoutes from "./routes/routes";
-import { UidContext } from "./contexts/uid-context";
+import { UserContext } from "./contexts/user";
 import { useEffect, useState } from "react";
 
 function App() {
   const [uid, setUid] = useState(localStorage.getItem("uid"));
+  const [email, setEmail] = useState(localStorage.getItem("email"));
   let isAllowed;
 
   useEffect(() => {
-    console.log("uid", uid);
+    console.log(email);
+  }, [email]);
+
+  useEffect(() => {
     if ((uid !== undefined) & (uid !== "undefined") & (uid !== null)) {
       isAllowed = true;
     } else {
       isAllowed = false;
     }
-    console.log("allowed", isAllowed);
   }, [uid]);
   return (
     <div className={styles.App}>
-      <UidContext.Provider value={{ uid, setUid }}>
+      <UserContext.Provider value={{ uid, setUid, email, setEmail }}>
         <AppRoutes isAllowed={isAllowed} />
-      </UidContext.Provider>
+      </UserContext.Provider>
     </div>
   );
 }

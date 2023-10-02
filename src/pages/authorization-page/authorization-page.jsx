@@ -3,7 +3,7 @@ import styles from "./authorization-page.module.css";
 import Logo from "../../components/logo/logo";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
-import { useUidContext } from "../../contexts/uid-context";
+import { useUidContext, useEmailContext } from "../../contexts/user";
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router";
 import { useState } from "react";
@@ -12,6 +12,7 @@ import PushNotice from "../../components/push-notice/push-notice";
 
 function AuthorizationPage() {
   const { setUid } = useUidContext();
+  const { setEmail } = useEmailContext();
   const location = useLocation().pathname;
   const navigate = useNavigate();
   const [showNotice, setShowNotice] = useState(false);
@@ -19,6 +20,9 @@ function AuthorizationPage() {
   const [login, setLogin] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+
+  // написать функцию для toggleShow
+  // написать функцию setData
 
   const hideNotice = () => {
     setShowNotice(false);
@@ -66,7 +70,9 @@ function AuthorizationPage() {
         })
         .then((responseData) => {
           localStorage.setItem("uid", responseData?.uid);
+          localStorage.setItem("email", responseData?.email);
           setUid(responseData?.uid);
+          setEmail(responseData?.email);
           if (responseData?.uid) {
             navigate("/profile");
           }
@@ -133,7 +139,9 @@ function AuthorizationPage() {
           })
           .then((responseData) => {
             localStorage.setItem("uid", responseData?.uid);
+            localStorage.setItem("email", responseData?.email);
             setUid(responseData?.uid);
+            setEmail(responseData?.email);
             if (responseData?.uid) {
               navigate("/profile");
             }
