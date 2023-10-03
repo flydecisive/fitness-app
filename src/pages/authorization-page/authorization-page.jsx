@@ -21,14 +21,18 @@ function AuthorizationPage() {
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
 
-  // написать функцию для toggleShow
-
   const toggleNotice = (text) => {
     setNoticeText(text);
     setShowNotice(true);
     setTimeout(hideNotice, 3000);
   };
-  // написать функцию setData
+
+  const setData = (data) => {
+    localStorage.setItem("uid", data?.uid);
+    localStorage.setItem("email", data?.email);
+    setUid(data?.uid);
+    setEmail(data?.email);
+  };
 
   const hideNotice = () => {
     setShowNotice(false);
@@ -71,10 +75,8 @@ function AuthorizationPage() {
           }
         })
         .then((responseData) => {
-          localStorage.setItem("uid", responseData?.uid);
-          localStorage.setItem("email", responseData?.email);
-          setUid(responseData?.uid);
-          setEmail(responseData?.email);
+          setData(responseData);
+
           if (responseData?.uid) {
             navigate("/profile");
           }
@@ -132,10 +134,8 @@ function AuthorizationPage() {
             }
           })
           .then((responseData) => {
-            localStorage.setItem("uid", responseData?.uid);
-            localStorage.setItem("email", responseData?.email);
-            setUid(responseData?.uid);
-            setEmail(responseData?.email);
+            setData(responseData);
+
             if (responseData?.uid) {
               navigate("/profile");
             }
