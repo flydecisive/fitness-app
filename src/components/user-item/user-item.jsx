@@ -2,9 +2,12 @@ import styles from "./user-item.module.css";
 import { NavLink } from "react-router-dom";
 import { ReactComponent as Exit } from "../../assets/img/exit.svg";
 import { useNavigate } from "react-router-dom";
+import { useAllowedContext } from "../../contexts/allowed";
 
 function UserItem({ userName }) {
   const navigate = useNavigate();
+  const { setIsAllowed } = useAllowedContext();
+
   return (
     <div className={styles.wrapper}>
       <NavLink className="link" to="/profile">
@@ -16,6 +19,7 @@ function UserItem({ userName }) {
         onClick={() => {
           localStorage.clear();
           navigate("/");
+          setIsAllowed(false);
         }}
       >
         <Exit className={styles.svg} />

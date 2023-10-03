@@ -1,5 +1,4 @@
 import styles from "./authorization-page.module.css";
-// import { ReactComponent as Logo } from "../../assets/img/logo.svg";
 import Logo from "../../components/logo/logo";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
@@ -9,8 +8,10 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 import { signInUser, createUser } from "../../firebase";
 import PushNotice from "../../components/push-notice/push-notice";
+import { useAllowedContext } from "../../contexts/allowed";
 
 function AuthorizationPage() {
+  const { setIsAllowed } = useAllowedContext();
   const { setUid } = useUidContext();
   const { setEmail } = useEmailContext();
   const location = useLocation().pathname;
@@ -32,6 +33,10 @@ function AuthorizationPage() {
     localStorage.setItem("email", data?.email);
     setUid(data?.uid);
     setEmail(data?.email);
+
+    if (data) {
+      setIsAllowed(true);
+    }
   };
 
   const hideNotice = () => {

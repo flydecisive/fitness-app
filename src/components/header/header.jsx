@@ -4,10 +4,11 @@ import { useLocation } from "react-router";
 import UserItem from "../user-item/user-item";
 import { NavLink } from "react-router-dom";
 import { useEmailContext } from "../../contexts/user";
+import { useAllowedContext } from "../../contexts/allowed";
 
 const Header = ({ color }) => {
   const { email } = useEmailContext();
-  const location = useLocation().pathname;
+  const { isAllowed } = useAllowedContext();
 
   const getUserName = (email) => {
     if (email) {
@@ -22,7 +23,8 @@ const Header = ({ color }) => {
   return (
     <div className={styles.header}>
       <Logo color={color} />
-      {location === "/profile" || location === "/course" ? (
+
+      {isAllowed ? (
         <UserItem userName={getUserName(email)} />
       ) : (
         <NavLink className="link" to="/login">
