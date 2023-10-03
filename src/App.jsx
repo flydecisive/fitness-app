@@ -7,7 +7,7 @@ import { useState } from "react";
 function App() {
   const [uid, setUid] = useState(localStorage.getItem("uid"));
   const [email, setEmail] = useState(localStorage.getItem("email"));
-  const [isAllowed, setIsAllowed] = useState(false);
+  const [isAllowed, setIsAllowed] = useState(email || uid ? true : false);
 
   return (
     <div className={styles.App}>

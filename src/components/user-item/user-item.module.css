@@ -14,6 +14,16 @@
   align-items: center;
 }
 
+.black {
+  stroke: #000;
+  color: #000;
+}
+
+.white {
+  stroke: #fff;
+  color: #fff;
+}
+
 .button {
   background-color: transparent;
   border: none;

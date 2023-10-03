@@ -25,7 +25,7 @@ const Header = ({ color }) => {
       <Logo color={color} />
 
       {isAllowed ? (
-        <UserItem userName={getUserName(email)} />
+        <UserItem userName={getUserName(email)} color={color} />
       ) : (
         <NavLink className="link" to="/login">
           <button className={styles.button}>Войти</button>
