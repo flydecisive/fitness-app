@@ -12,3 +12,5 @@ export const coursesApi = createApi({
     }),
   }),
 });
+
+export const { useGetAllCoursesQuery } = coursesApi;
