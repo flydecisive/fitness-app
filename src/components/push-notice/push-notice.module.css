@@ -3,16 +3,21 @@
   z-index: 40;
   top: 10px;
   right: 10px;
-  width: 250px;
+  min-width: 250px;
   min-height: 70px;
   padding: 10px;
   margin: 10px;
   line-height: 1.8;
-  border-radius: 5px;
-  cursor: hand;
   cursor: pointer;
   font-family: sans-serif;
   font-weight: 400;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f4f5f6;
+  border: none;
+  border-radius: 25px;
+  box-sizing: border-box;
 }
 
 .alertText {
@@ -25,15 +30,16 @@
 }
 
 .alertClose {
-  float: right;
-  padding-top: 5px;
+  padding: 0 10px 0 10px;
   font-size: 20px;
-  width: 20px;
+  width: 40px;
+  height: 100%;
   border: none;
   background: transparent;
+  border-left: 1px solid black;
 }
 
-.info {
+/* .info {
   background-color: #eee;
   border: 1px solid #ddd;
   color: #999;
@@ -61,4 +67,4 @@
   background-color: #fee;
   border: 1px solid #edd;
   color: #a66;
-}
+} */
