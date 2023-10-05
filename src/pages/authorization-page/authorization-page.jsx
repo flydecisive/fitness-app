@@ -1,15 +1,19 @@
-import styles from "./authorization.module.css";
-// import { ReactComponent as Logo } from "../../assets/img/logo.svg";
+import styles from "./authorization-page.module.css";
 import Logo from "../../components/logo/logo";
 import Button from "../../components/button/button";
 import Input from "../../components/input/input";
+import { useUidContext, useEmailContext } from "../../contexts/user";
 import { useLocation } from "react-router";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { signInUser, createUser } from "../../firebase";
 import PushNotice from "../../components/push-notice/push-notice";
+import { useAllowedContext } from "../../contexts/allowed";
 
 function AuthorizationPage() {
+  const { setIsAllowed } = useAllowedContext();
+  const { setUid } = useUidContext();
+  const { setEmail } = useEmailContext();
   const location = useLocation().pathname;
   const navigate = useNavigate();
   const [showNotice, setShowNotice] = useState(false);
@@ -17,6 +21,27 @@ function AuthorizationPage() {
   const [login, setLogin] = useState();
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
+
+  const toggleNotice = (text) => {
+    setNoticeText(text);
+    setShowNotice(true);
+    setTimeout(hideNotice, 3000);
+  };
+
+  const setData = (data) => {
+    localStorage.setItem("uid", data?.uid);
+    localStorage.setItem("email", data?.email);
+    setUid(data?.uid);
+    setEmail(data?.email);
+
+    if (data) {
+      setIsAllowed(true);
+    }
+  };
+
+  const hideNotice = () => {
+    setShowNotice(false);
+  };
 
   const loginHandler = (e) => {
     setLogin(e.target.value);
@@ -33,14 +58,14 @@ function AuthorizationPage() {
   // Авторизация
   const loginButtonHandler = (login, password) => {
     if (!login) {
-      setNoticeText("Введите E-mail/пароль");
-      setShowNotice(true);
+      toggleNotice("Введите E-mail/пароль");
+
       return;
     }
 
     if (!password) {
-      setNoticeText("Введите E-mail/пароль");
-      setShowNotice(true);
+      toggleNotice("Введите E-mail/пароль");
+
       return;
     }
 
@@ -51,13 +76,15 @@ function AuthorizationPage() {
         })
         .catch((err) => {
           if (err.message.includes("auth/invalid-login-credentials")) {
-            setNoticeText("Не верный E-mail/пароль");
-            setShowNotice(true);
-            console.log("Не верный E-mail/пароль");
+            toggleNotice("Не верный E-mail/пароль");
           }
         })
         .then((responseData) => {
-          console.log(responseData.email);
+          setData(responseData);
+
+          if (responseData?.uid) {
+            navigate("/profile");
+          }
         });
     }
   };
@@ -65,26 +92,32 @@ function AuthorizationPage() {
   // Регистрация
   const registerButtonHandler = (login, password) => {
     if (!login) {
-      console.log("Введите E-mail/пароль");
+      toggleNotice("Введите E-mail/пароль");
+
       return;
     } else if (login.length < 3) {
-      console.log("Введенный E-mail слишком короткий");
+      toggleNotice("Введенный E-mail слишком короткий");
+
       return;
     }
 
     if (!password) {
-      console.log("Введите E-mail/пароль");
+      toggleNotice("Введите E-mail/пароль");
+
       return;
     } else if (password.length < 6) {
-      console.log("Введенный пароль слишком короткий");
+      toggleNotice("Введенный пароль слишком короткий");
+
       return;
     }
 
     if (!confirmPassword) {
-      console.log("Введите подтверждающий пароль");
+      toggleNotice("Введите подтверждающий пароль");
+
       return;
     } else if (confirmPassword.length < 6) {
-      console.log("Введенный пароль слишком короткий");
+      toggleNotice("Введенный пароль слишком короткий");
+
       return;
     }
 
@@ -96,20 +129,25 @@ function AuthorizationPage() {
           })
           .catch((err) => {
             if (err.message.includes("auth/invalid-email")) {
-              console.log("Введен невалидный email");
+              toggleNotice("Введен невалидный email");
+
               return;
             } else if (err.message.includes("auth/email-already-in-use")) {
-              console.log("Пользователь с таким email уже существует");
+              toggleNotice("Пользователь с таким email уже существует");
+
               return;
             }
-
-            console.log(err.message);
           })
           .then((responseData) => {
-            console.log(responseData?.email);
+            setData(responseData);
+
+            if (responseData?.uid) {
+              navigate("/profile");
+            }
           });
       } else {
-        console.log("Введенные пароли не совпадают");
+        toggleNotice("Введенные пароли не совпадают");
+
         return;
       }
     }

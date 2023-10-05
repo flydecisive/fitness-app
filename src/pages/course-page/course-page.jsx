@@ -12,7 +12,7 @@ function CoursePage() {
 
   return (
     <div className={`container`}>
-      <Header />
+      <Header color="black" />
       <h2 className={styles.heading}>Йога</h2>
       <div className={styles.path}>
         Красота и здоровье / Йога на каждый день / 2 день
