@@ -2,8 +2,14 @@ import Header from "../../components/header/header";
 import { ReactComponent as Sticker } from "../../assets/img/sale_sticker_1.svg";
 import styles from "./main-page.module.css";
 import ButtonArrow from "../../components/button/button-arrow";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 const MainPage = () => {
+  const navigate = useNavigate();
+  const allCourses = useSelector((store) => store.courses.allCourses);
+  const course = allCourses ? allCourses[0] : [];
+
   return (
     <section className={styles.main}>
       <div className="container">
@@ -19,7 +25,12 @@ const MainPage = () => {
             <Sticker />
           </div>
           <div className={styles.content_main}>
-            <div className={styles.img_box}>
+            <div
+              className={styles.img_box}
+              onClick={() => {
+                navigate(`/course/${course._id}`);
+              }}
+            >
               <p className={styles.img_title}>Йога</p>
               <img className={styles.img} src="/img/yoga.png" alt="yoga" />
             </div>

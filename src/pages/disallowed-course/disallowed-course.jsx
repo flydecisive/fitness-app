@@ -5,11 +5,20 @@ import { reasonsText } from "../../consts";
 import RecordForm from "./components/record-form/record-form";
 import Header from "../../components/header/header";
 import CourseBanner from "../../components/course-banner/course-banner";
+import { useParams } from "react-router";
+import { useSelector } from "react-redux";
 
 export function DisallowedCoursePage() {
+  const id = useParams().id;
+  console.log(id);
+  const allCourses = useSelector((store) => store.courses.allCourses);
+  // Написать Диме как это делается
+  // Написать распределение курсов
+  // заполнить курсы по определенным страницам
   const reasons = reasonsText.map((reason, index) => {
     return <Reason number={index + 1} text={reason} key={index} />;
   });
+
   return (
     <div className={`${styles.wrapper} container`}>
       <Header color="black" />
