@@ -3,84 +3,12 @@ import Button from "../../components/button/button";
 import styles from "./profile-page.module.css";
 import ButtonArrow from "../../components/button/button-arrow";
 import { useEffect, useState } from "react";
-import PasswordEditing from "../../components/user-data-editing/password-editing";
-import LoginEditing from "../../components/user-data-editing/login-editing";
-import ChoseTraining from "../../components/chose-training/chose-training";
+import PasswordEditing from "../../components/modals/user-data-editing/password-editing";
+import LoginEditing from "../../components/modals/user-data-editing/login-editing";
+import ChoseTraining from "../../components/modals/chose-training/chose-training";
+import data from "../../data";
 
 const ProfilePage = () => {
-  const data = [
-    {
-      title: "Йога",
-      img: "/img/yoga.png",
-      exercises: [
-        {
-          title: "Утренняя практика",
-          subtitle: "Йога на каждый день / 1 день",
-        },
-        {
-          title: "Красота и здоровье",
-          subtitle: "Йога на каждый день / 2 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Йога на каждый день / 3 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Йога на каждый день / 4 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Йога на каждый день / 5 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Йога на каждый день / 6 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Йога на каждый день / 7 день",
-        },
-      ],
-    },
-    {
-      title: "Стретчинг",
-      img: "/img/stratching.png",
-      exercises: [
-        {
-          title: "Утренняя практика",
-          subtitle: "Стретчинг на каждый день / 1 день",
-        },
-        {
-          title: "Красота и здоровье",
-          subtitle: "Стретчинг на каждый день / 2 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Стретчинг на каждый день / 3 день",
-        },
-      ],
-    },
-    {
-      title: "Танцевальный фитнес",
-      img: "/img/dance.png",
-      exercises: [
-        {
-          title: "Утренняя практика",
-          subtitle: "Фитнес на каждый день / 1 день",
-        },
-        {
-          title: "Красота и здоровье",
-          subtitle: "Фитнес на каждый день / 2 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Фитнес на каждый день / 3 день",
-        },
-      ],
-    },
-  ];
-
   const [modalPasswordOpen, setModalPasswordOpen] = useState(false);
   const [modalLoginOpen, setModalLoginOpen] = useState(false);
   const [modalTrainingsOpen, setModalTrainingsOpen] = useState(false);

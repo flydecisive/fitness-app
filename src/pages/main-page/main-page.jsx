@@ -2,8 +2,17 @@ import Header from "../../components/header/header";
 import { ReactComponent as Sticker } from "../../assets/img/sale_sticker_1.svg";
 import styles from "./main-page.module.css";
 import ButtonArrow from "../../components/button/button-arrow";
+import data from "../../data";
+import { Link } from "react-router-dom";
 
 const MainPage = () => {
+  const handleTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section className={styles.main}>
       <div className="container">
@@ -19,37 +28,19 @@ const MainPage = () => {
             <Sticker />
           </div>
           <div className={styles.content_main}>
-            <div className={styles.img_box}>
-              <p className={styles.img_title}>Йога</p>
-              <img className={styles.img} src="/img/yoga.png" alt="yoga" />
-            </div>
-            <div className={styles.img_box}>
-              <p className={styles.img_title}>Стретчинг</p>
-              <img
-                className={styles.img}
-                src="/img/stratching.png"
-                alt="stratching"
-              />
-            </div>
-            <div className={styles.img_box}>
-              <p className={styles.img_title}>Танцевальный фитнес</p>
-              <img className={styles.img} src="/img/dance.png" alt="dance" />
-            </div>
-            <div className={styles.img_box}>
-              <p className={styles.img_title}>Степ-аэробика</p>
-              <img className={styles.img} src="/img/stap.png" alt="stap" />
-            </div>
-            <div className={styles.img_box}>
-              <p className={styles.img_title}>Бодифлекс</p>
-              <img
-                className={styles.img}
-                src="/img/bodyflex.png"
-                alt="bodyflex"
-              />
-            </div>
+            {data.map((item) => (
+              <Link className={styles.img_box} to="/course/1">
+                <p className={styles.img_title}>{item.title}</p>
+                <img className={styles.img} src={item.img} alt="training" />
+              </Link>
+            ))}
           </div>
-          <ButtonArrow text="Наверх ↑" />
         </div>
+        <footer>
+          <div onClick={() => handleTop()}>
+            <ButtonArrow text="Наверх ↑" />
+          </div>
+        </footer>
       </div>
     </section>
   );

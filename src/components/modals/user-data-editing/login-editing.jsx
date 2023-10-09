@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
-import Button from "../button/button";
-import Input from "../input/input";
-import Logo from "../logo/logo";
+import Button from "../../button/button";
+import Input from "../../input/input";
+import Logo from "../../logo/logo";
 import styles from "./login-editing.module.css";
 
 const LoginEditing = ({ show, setShow }) => {
