@@ -1,29 +1,65 @@
 import styles from "./disallowed-course.module.css";
 import Heading from "./components/heading/heading";
 import Reason from "./components/reason/reason";
-import { reasonsText } from "../../consts";
 import RecordForm from "./components/record-form/record-form";
 import Header from "../../components/header/header";
 import CourseBanner from "../../components/course-banner/course-banner";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
+import { useAllowedContext } from "../../contexts/allowed";
+import { useEffect, useState } from "react";
+import DirectionColumn from "./components/direction-column/direction-column";
 
 export function DisallowedCoursePage() {
-  const id = useParams().id;
-  console.log(id);
+  const { isAllowed } = useAllowedContext();
+  const params = useParams();
+  const id = params.id;
   const allCourses = useSelector((store) => store.courses.allCourses);
-  // Написать Диме как это делается
-  // Написать распределение курсов
-  // заполнить курсы по определенным страницам
-  const reasons = reasonsText.map((reason, index) => {
-    return <Reason number={index + 1} text={reason} key={index} />;
-  });
+  const [course, setCourse] = useState({});
+
+  useEffect(() => {
+    if (allCourses) {
+      allCourses.forEach((elem) => {
+        if (elem._id === id) {
+          setCourse(elem);
+        }
+      });
+    }
+  }, [allCourses]);
+
+  const reasonsData = course.reasons;
+  let reasons;
+  if (reasonsData) {
+    reasons = reasonsData.map((reason, index) => {
+      return <Reason number={index + 1} text={reason} key={index} />;
+    });
+  }
+
+  function separateData(data) {
+    const separatedData = [];
+    const size = 3;
+    for (let i = 0; i < data.length / size; i++) {
+      separatedData[i] = data.slice(i * size, i * size + size);
+    }
+
+    return separatedData;
+  }
+
+  const directionsData = course.directions;
+  let directions;
+
+  if (directionsData) {
+    directions = separateData(directionsData);
+  }
+
+  const directionsElems = directions?.map((direction, index) => (
+    <DirectionColumn key={index} elements={direction} />
+  ));
 
   return (
     <div className={`${styles.wrapper} container`}>
       <Header color="black" />
-      {/* <div className={styles.banner}></div> */}
-      <CourseBanner />
+      <CourseBanner name={course?.name} />
       <div>
         <Heading text={"Подойдет для вас, если:"} />
         <div className={`${styles["content-container"]} ${styles.reasons}`}>
@@ -32,29 +68,11 @@ export function DisallowedCoursePage() {
       </div>
       <div>
         <Heading text={"Направления:"} />
-        <div className={styles["content-container"]}>
-          <div className="small-text">
-            <ul>
-              <li>Йога для новичков</li>
-              <li>Классическая йога</li>
-              <li>Йогатерапия</li>
-            </ul>
-          </div>
-          <div className="small-text">
-            <ul>
-              <li>Кундалини-йога</li>
-              <li>Хатха-йога</li>
-              <li>Аштанга-йога</li>
-            </ul>
-          </div>
+        <div className={`${styles.directions} small-text`}>
+          {directionsElems}
         </div>
       </div>
-      <p className={`${styles.text} small-text`}>
-        Благодаря комплексному воздействию упражнений происходит проработка всех
-        групп мышц, тренировка суставов, улучшается циркуляция крови. Кроме
-        того, упражнения дарят отличное настроение, заряжают бодростью и
-        помогают противостоять стрессам.
-      </p>
+      <p className={`${styles.text} small-text`}>{course?.description}</p>
       <RecordForm />
     </div>
   );
