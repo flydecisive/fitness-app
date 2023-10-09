@@ -25,6 +25,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 .content_header {
   display: flex;
@@ -45,7 +46,7 @@
 }
 .subtitle {
   color: #f4f4ff;
-
+  width: 70%;
   font-size: 60px;
   font-style: normal;
   font-weight: 400;
