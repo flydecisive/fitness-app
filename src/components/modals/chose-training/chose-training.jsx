@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef, useState } from "react";
 import styles from "./chose-training.module.css";
-import activeItem from "../../assets/img/active_item.svg";
 
 const ChoseTraining = ({ data, setShow, show }) => {
   const [indexArray, setIndexArray] = useState([]);
@@ -44,7 +43,7 @@ const ChoseTraining = ({ data, setShow, show }) => {
               <div className={styles.item_box} key={i}>
                 {indexArray.includes(i) ? (
                   <div className={styles.item_box_svg}>
-                    <img src={activeItem} alt="active_item" />
+                    <img src="/img/active_item.svg" alt="active_item" />
                   </div>
                 ) : (
                   ""

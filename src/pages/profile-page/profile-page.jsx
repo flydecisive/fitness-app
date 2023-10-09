@@ -3,11 +3,12 @@ import Button from "../../components/button/button";
 import styles from "./profile-page.module.css";
 import ButtonArrow from "../../components/button/button-arrow";
 import { useEffect, useState } from "react";
-import PasswordEditing from "../../components/user-data-editing/password-editing";
-import LoginEditing from "../../components/user-data-editing/login-editing";
-import ChoseTraining from "../../components/chose-training/chose-training";
+import PasswordEditing from "../../components/modals/user-data-editing/password-editing";
+import LoginEditing from "../../components/modals/user-data-editing/login-editing";
+import ChoseTraining from "../../components/modals/chose-training/chose-training";
 import { useEmailContext } from "../../contexts/user";
 import { useSelector } from "react-redux";
+
 
 const ProfilePage = () => {
   const { email } = useEmailContext();
