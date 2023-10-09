@@ -18,30 +18,6 @@ const MainPage = () => {
 
   const navigate = useNavigate();
   const allCourses = useSelector((store) => store.courses.allCourses);
-  const [img, setImg] = useState([]);
-
-  const Images = [
-    {
-      name: "Степ-аэробика",
-      img: "/img/stap.png",
-    },
-    {
-      name: "Танцевальный фитнес ",
-      img: "/img/dance.png",
-    },
-    {
-      name: "Йога",
-      img: "/img/yoga.png",
-    },
-    {
-      name: "Бодифлекс",
-      img: "/img/bodyflex.png",
-    },
-    {
-      name: "Стретчинг",
-      img: "/img/stratching.png",
-    },
-  ];
 
   const handleImg = (item) => {
     switch (item.name) {
