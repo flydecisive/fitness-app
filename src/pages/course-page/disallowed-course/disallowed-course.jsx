@@ -5,13 +5,10 @@ import Reason from "./components/reason/reason";
 import RecordForm from "./components/record-form/record-form";
 import Header from "../../../components/header/header";
 import CourseBanner from "../../../components/course-banner/course-banner";
-import { useParams } from "react-router";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import DirectionColumn from "./components/direction-column/direction-column";
 
 export function DisallowedCourse({ course }) {
-  const reasonsData = course.reasons;
+  const reasonsData = course?.reasons;
   let reasons;
   if (reasonsData) {
     reasons = reasonsData.map((reason, index) => {
@@ -29,7 +26,7 @@ export function DisallowedCourse({ course }) {
     return separatedData;
   }
 
-  const directionsData = course.directions;
+  const directionsData = course?.directions;
   let directions;
 
   if (directionsData) {
