@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import data from "../../data";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const MainPage = () => {
   const handleTop = () => {
@@ -17,7 +18,47 @@ const MainPage = () => {
 
   const navigate = useNavigate();
   const allCourses = useSelector((store) => store.courses.allCourses);
-  const course = allCourses ? allCourses[4] : [];
+  const [img, setImg] = useState([]);
+
+  const Images = [
+    {
+      name: "Степ-аэробика",
+      img: "/img/stap.png",
+    },
+    {
+      name: "Танцевальный фитнес ",
+      img: "/img/dance.png",
+    },
+    {
+      name: "Йога",
+      img: "/img/yoga.png",
+    },
+    {
+      name: "Бодифлекс",
+      img: "/img/bodyflex.png",
+    },
+    {
+      name: "Стретчинг",
+      img: "/img/stratching.png",
+    },
+  ];
+
+  const handleImg = (item) => {
+    switch (item.name) {
+      case "Стретчинг":
+        return "/img/stratching.png";
+      case "Бодифлекс":
+        return "/img/bodyflex.png";
+      case "Йога":
+        return "/img/yoga.png";
+      case "Танцевальный фитнес ":
+        return "/img/dance.png";
+      case "Степ-аэробика":
+        return "/img/stap.png";
+      default:
+        return "/img/stap.png";
+    }
+  };
 
   return (
     <section className={styles.main}>
@@ -34,39 +75,21 @@ const MainPage = () => {
             <Sticker />
           </div>
           <div className={styles.content_main}>
-            <div
-              className={styles.img_box}
-              onClick={() => {
-                navigate(`/course/${course._id}`);
-              }}
-            >
-              <p className={styles.img_title}>Йога</p>
-              <img className={styles.img} src="/img/yoga.png" alt="yoga" />
-            </div>
-            <div className={styles.img_box}>
-              <p className={styles.img_title}>Стретчинг</p>
-              <img
-                className={styles.img}
-                src="/img/stratching.png"
-                alt="stratching"
-              />
-            </div>
-            <div className={styles.img_box}>
-              <p className={styles.img_title}>Танцевальный фитнес</p>
-              <img className={styles.img} src="/img/dance.png" alt="dance" />
-            </div>
-            <div className={styles.img_box}>
-              <p className={styles.img_title}>Степ-аэробика</p>
-              <img className={styles.img} src="/img/stap.png" alt="stap" />
-            </div>
-            <div className={styles.img_box}>
-              <p className={styles.img_title}>Бодифлекс</p>
-              <img
-                className={styles.img}
-                src="/img/bodyflex.png"
-                alt="bodyflex"
-              />
-            </div>
+            {allCourses.map((item) => (
+              <div
+                className={styles.img_box}
+                onClick={() => {
+                  navigate(`/course/${item._id}`);
+                }}
+              >
+                <p className={styles.img_title}>{item.name}</p>
+                <img
+                  className={styles.img}
+                  src={handleImg(item)}
+                  alt="fitness"
+                />
+              </div>
+            ))}
           </div>
         </div>
         <footer>
