@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 const MainPage = () => {
   const navigate = useNavigate();
   const allCourses = useSelector((store) => store.courses.allCourses);
-  const course = allCourses ? allCourses[0] : [];
+  const course = allCourses ? allCourses[4] : [];
 
   return (
     <section className={styles.main}>

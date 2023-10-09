@@ -1,32 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./disallowed-course.module.css";
 import Heading from "./components/heading/heading";
 import Reason from "./components/reason/reason";
 import RecordForm from "./components/record-form/record-form";
-import Header from "../../components/header/header";
-import CourseBanner from "../../components/course-banner/course-banner";
+import Header from "../../../components/header/header";
+import CourseBanner from "../../../components/course-banner/course-banner";
 import { useParams } from "react-router";
 import { useSelector } from "react-redux";
-import { useAllowedContext } from "../../contexts/allowed";
 import { useEffect, useState } from "react";
 import DirectionColumn from "./components/direction-column/direction-column";
 
-export function DisallowedCoursePage() {
-  const { isAllowed } = useAllowedContext();
-  const params = useParams();
-  const id = params.id;
-  const allCourses = useSelector((store) => store.courses.allCourses);
-  const [course, setCourse] = useState({});
-
-  useEffect(() => {
-    if (allCourses) {
-      allCourses.forEach((elem) => {
-        if (elem._id === id) {
-          setCourse(elem);
-        }
-      });
-    }
-  }, [allCourses]);
-
+export function DisallowedCourse({ course }) {
   const reasonsData = course.reasons;
   let reasons;
   if (reasonsData) {
