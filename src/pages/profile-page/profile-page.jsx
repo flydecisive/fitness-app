@@ -7,9 +7,13 @@ import PasswordEditing from "../../components/user-data-editing/password-editing
 import LoginEditing from "../../components/user-data-editing/login-editing";
 import ChoseTraining from "../../components/chose-training/chose-training";
 import { useEmailContext } from "../../contexts/user";
+import { useSelector } from "react-redux";
 
 const ProfilePage = () => {
   const { email } = useEmailContext();
+  const allCourses = useSelector((store) => store.courses.allCourses);
+
+  console.log(allCourses);
   const data = [
     {
       title: "Йога",
