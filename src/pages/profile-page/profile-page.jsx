@@ -6,9 +6,84 @@ import { useEffect, useState } from "react";
 import PasswordEditing from "../../components/modals/user-data-editing/password-editing";
 import LoginEditing from "../../components/modals/user-data-editing/login-editing";
 import ChoseTraining from "../../components/modals/chose-training/chose-training";
+import { useEmailContext } from "../../contexts/user";
 import data from "../../data";
 
 const ProfilePage = () => {
+  const { email } = useEmailContext();
+  const data = [
+    {
+      title: "Йога",
+      img: "/img/yoga.png",
+      exercises: [
+        {
+          title: "Утренняя практика",
+          subtitle: "Йога на каждый день / 1 день",
+        },
+        {
+          title: "Красота и здоровье",
+          subtitle: "Йога на каждый день / 2 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Йога на каждый день / 3 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Йога на каждый день / 4 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Йога на каждый день / 5 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Йога на каждый день / 6 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Йога на каждый день / 7 день",
+        },
+      ],
+    },
+    {
+      title: "Стретчинг",
+      img: "/img/stratching.png",
+      exercises: [
+        {
+          title: "Утренняя практика",
+          subtitle: "Стретчинг на каждый день / 1 день",
+        },
+        {
+          title: "Красота и здоровье",
+          subtitle: "Стретчинг на каждый день / 2 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Стретчинг на каждый день / 3 день",
+        },
+      ],
+    },
+    {
+      title: "Танцевальный фитнес",
+      img: "/img/dance.png",
+      exercises: [
+        {
+          title: "Утренняя практика",
+          subtitle: "Фитнес на каждый день / 1 день",
+        },
+        {
+          title: "Красота и здоровье",
+          subtitle: "Фитнес на каждый день / 2 день",
+        },
+        {
+          title: "Асаны стоя",
+          subtitle: "Фитнес на каждый день / 3 день",
+        },
+      ],
+    },
+  ];
+
   const [modalPasswordOpen, setModalPasswordOpen] = useState(false);
   const [modalLoginOpen, setModalLoginOpen] = useState(false);
   const [modalTrainingsOpen, setModalTrainingsOpen] = useState(false);
@@ -56,7 +131,7 @@ const ProfilePage = () => {
         <div className={styles.content_profile}>
           <p className={styles.content_title}>Мой профиль</p>
           <div className={styles.content_user}>
-            <p className={styles.content_user_item}>Логин: sergey.petrov96</p>
+            <p className={styles.content_user_item}>Логин: {email}</p>
             <p className={styles.content_user_item}>Пароль: ********</p>
           </div>
           <div className={styles.content_buttons}>
