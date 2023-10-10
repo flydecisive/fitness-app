@@ -1,5 +1,3 @@
-// Пробный запрос в BD
-
 // Тренировки
 export const getWorkouts = () => {
   return fetch(
@@ -7,11 +5,7 @@ export const getWorkouts = () => {
     {
       method: "GET",
     }
-  )
-    .then((response) => {
-      return response.json();
-    })
-    .then((responseData) => {
-      console.log(responseData);
-    });
+  ).then((response) => {
+    return response.json();
+  });
 };

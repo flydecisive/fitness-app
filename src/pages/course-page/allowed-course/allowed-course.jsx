@@ -2,18 +2,38 @@ import styles from "./allowed-course.module.css";
 import Button from "../../../components/button/button";
 import ProgressForm from "../../../components/progress-form/progress-form";
 import Header from "../../../components/header/header";
-import { useState } from "react";
-import Congrat from "../../../components/congrat/congrat";
+import { useEffect, useState } from "react";
 import ExerciseProgress from "../../../components/exercise-progress/exercise-progress";
+import { getWorkouts } from "../../../api";
+import ChoseTraining from "../../../components/modals/chose-training/chose-training";
 
-function AllowedCourse() {
-  const [show, setShow] = useState(false);
+function AllowedCourse({ course }) {
   const [progress, setProgress] = useState(0);
+  const [choosedWorkout, setChoosedWorkout] = useState(false);
+  const [show, setShow] = useState(!choosedWorkout);
+  const [currentWorkouts, setCurrentWorkouts] = useState();
 
-  return (
+  const courseWorkouts = course?.workouts;
+
+  useEffect(() => {
+    getWorkouts().then((responseData) => {
+      const keys = Object.keys(responseData);
+      const workouts = [];
+      for (let i = 0; i < courseWorkouts?.length; i++) {
+        for (let j = 0; j < keys?.length; j++) {
+          if (keys[j] === courseWorkouts[i]) {
+            workouts.push(responseData[keys[j]]);
+          }
+        }
+      }
+      setCurrentWorkouts(workouts);
+    });
+  }, [courseWorkouts]);
+
+  return choosedWorkout ? (
     <div className={`container`}>
       <Header color="black" />
-      <h2 className={styles.heading}>Йога</h2>
+      <h2 className={styles.heading}>{course?.name}</h2>
       <div className={styles.path}>
         Красота и здоровье / Йога на каждый день / 2 день
       </div>
@@ -76,6 +96,13 @@ function AllowedCourse() {
         </div>
       </div>
     </div>
+  ) : (
+    <ChoseTraining
+      data={currentWorkouts}
+      show={show}
+      setShow={setShow}
+      setChoosedWorkout={setChoosedWorkout}
+    />
   );
 }
 

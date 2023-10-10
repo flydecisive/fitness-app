@@ -2,10 +2,12 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./chose-training.module.css";
 
-const ChoseTraining = ({ data, setShow, show }) => {
+const ChoseTraining = ({ data, setShow, show, setChoosedWorkout }) => {
   const [indexArray, setIndexArray] = useState([]);
+  console.log(data);
 
   const modalRef = useRef();
+  // Закрытие окна
   const closeModalOnClickOut = (e) => {
     if (
       show &&
@@ -17,6 +19,7 @@ const ChoseTraining = ({ data, setShow, show }) => {
     }
   };
 
+  // событие закрытия окна
   useEffect(() => {
     document.body.addEventListener("mousedown", closeModalOnClickOut);
 
@@ -39,7 +42,7 @@ const ChoseTraining = ({ data, setShow, show }) => {
         <div className={styles.modal}>
           <p className={styles.title}>Выберите тренировку</p>
           <div className={styles["inputs_container"]}>
-            {data.exercises.map((item, i) => (
+            {data?.map((item, i) => (
               <div className={styles.item_box} key={i}>
                 {indexArray.includes(i) ? (
                   <div className={styles.item_box_svg}>
@@ -57,8 +60,15 @@ const ChoseTraining = ({ data, setShow, show }) => {
                     indexArray.includes(i) ? styles.item_active : styles.item
                   }
                 >
-                  <p className={styles.item_title}>{item.title}</p>
-                  <p className={styles.item_subtitle}>{item.subtitle}</p>
+                  <p className={styles.item_title}>
+                    {item.name.slice(0, item.name.indexOf("/"))}
+                  </p>
+                  <p className={styles.item_subtitle}>
+                    {item.name.slice(
+                      item.name.indexOf("/") + 2,
+                      item.name.lastIndexOf("/")
+                    )}
+                  </p>
                 </div>
               </div>
             ))}
