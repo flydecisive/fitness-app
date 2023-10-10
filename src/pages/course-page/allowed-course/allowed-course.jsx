@@ -14,6 +14,7 @@ function AllowedCourse({ course }) {
   const [currentWorkouts, setCurrentWorkouts] = useState();
 
   const courseWorkouts = course?.workouts;
+  console.log(choosedWorkout);
 
   useEffect(() => {
     getWorkouts().then((responseData) => {
@@ -30,18 +31,34 @@ function AllowedCourse({ course }) {
     });
   }, [courseWorkouts]);
 
+  function createValidVideoUrl(url) {
+    const lastPath = url.slice(url.lastIndexOf("/"));
+
+    return `https://youtube.com/embed${lastPath}`;
+  }
+
   return choosedWorkout ? (
     <div className={`container`}>
       <Header color="black" />
       <h2 className={styles.heading}>{course?.name}</h2>
       <div className={styles.path}>
-        Красота и здоровье / Йога на каждый день / 2 день
+        {choosedWorkout?.name.includes("/")
+          ? choosedWorkout?.name.slice(0, choosedWorkout?.name.lastIndexOf("/"))
+          : choosedWorkout?.name}
       </div>
       <div className={styles.video}>
-        <video controls>
-          <source src="" type="video/mp4" />
-          <source src="" type="video/webm" />
-        </video>
+        {/* <video controls>
+          <source src={choosedWorkout.video_url} type="video/mp4" />
+          <source src={choosedWorkout.video_url} type="video/webm" />
+        </video> */}
+        <iframe
+          width="100%"
+          height="100%"
+          src={createValidVideoUrl(choosedWorkout?.video_url)}
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        ></iframe>
       </div>
       <div className={styles.content}>
         <div className={styles.exercices}>
