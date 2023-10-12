@@ -5,9 +5,9 @@ import Input from "../../input/input";
 import Logo from "../../logo/logo";
 import styles from "./login-editing.module.css";
 import { getAuth } from "firebase/auth";
-import {useAllowedContext} from "../../../contexts/allowed";
-import {useEmailContext, useUidContext} from "../../../contexts/user";
-import {changeLogin} from "../../../firebase";
+import { useAllowedContext } from "../../../contexts/allowed";
+import { useEmailContext, useUidContext } from "../../../contexts/user";
+import { changeLogin } from "../../../firebase";
 
 const LoginEditing = ({ show, setShow }) => {
   const [login, setLogin] = useState("");
@@ -59,16 +59,16 @@ const LoginEditing = ({ show, setShow }) => {
     } else {
       changeLogin(login)
         .then((response) => {
-          console.log(response)
+          console.log(response);
           return response.user;
         })
         .catch((err) => {
-          console.log(error)
+          console.log(error);
         })
         .then((responseData) => {
           setData(responseData);
           setShow(false);
-          alert('логин изменен')
+          alert("логин изменен");
         });
     }
   };
@@ -76,7 +76,6 @@ const LoginEditing = ({ show, setShow }) => {
   useEffect(() => {
     setError(null);
   }, [login, repeatLogin]);
-
 
   if (show) {
     return (

@@ -24,7 +24,11 @@ function CoursePage() {
     }
   }, [allCourses]);
 
-  return isAllowed ? <AllowedCourse /> : <DisallowedCourse course={course} />;
+  return isAllowed ? (
+    <AllowedCourse course={course} />
+  ) : (
+    <DisallowedCourse course={course} />
+  );
 }
 
 export default CoursePage;

@@ -6,14 +6,15 @@ import { useState } from "react";
 import Congrat from "../../../components/congrat/congrat";
 import ExerciseProgress from "../../../components/exercise-progress/exercise-progress";
 
-function AllowedCourse() {
+function AllowedCourse({ course }) {
+  console.log(course);
   const [show, setShow] = useState(false);
   const [progress, setProgress] = useState(0);
 
   return (
     <div className={`container`}>
       <Header color="black" />
-      <h2 className={styles.heading}>Йога</h2>
+      <h2 className={styles.heading}>{course.name}</h2>
       <div className={styles.path}>
         Красота и здоровье / Йога на каждый день / 2 день
       </div>

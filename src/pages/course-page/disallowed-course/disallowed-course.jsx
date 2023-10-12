@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import DirectionColumn from "./components/direction-column/direction-column";
 
 export function DisallowedCourse({ course }) {
+  
   const reasonsData = course.reasons;
   let reasons;
   if (reasonsData) {

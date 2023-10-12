@@ -4,9 +4,6 @@ import styles from "./main-page.module.css";
 import ButtonArrow from "../../components/button/button-arrow";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import data from "../../data";
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 const MainPage = () => {
   const handleTop = () => {
