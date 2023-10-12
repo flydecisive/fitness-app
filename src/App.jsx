@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./App.module.css";
 import AppRoutes from "./routes/routes";
 import { UserContext } from "./contexts/user";
 import { AllowedContext } from "./contexts/allowed";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useGetAllCoursesQuery } from "./services/courses";
 import { setAllCourses } from "./store/actions/creators/courses";
 import { CourseContext } from "./contexts/course";

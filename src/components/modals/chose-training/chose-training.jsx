@@ -2,10 +2,11 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./chose-training.module.css";
 
-const ChoseTraining = ({ data, setShow, show }) => {
+const ChoseTraining = ({ data, setShow, show, setChoosedWorkout }) => {
   const [indexArray, setIndexArray] = useState([]);
 
   const modalRef = useRef();
+  // Закрытие окна
   const closeModalOnClickOut = (e) => {
     if (
       show &&
@@ -17,6 +18,7 @@ const ChoseTraining = ({ data, setShow, show }) => {
     }
   };
 
+  // событие закрытия окна
   useEffect(() => {
     document.body.addEventListener("mousedown", closeModalOnClickOut);
 
@@ -39,26 +41,40 @@ const ChoseTraining = ({ data, setShow, show }) => {
         <div className={styles.modal}>
           <p className={styles.title}>Выберите тренировку</p>
           <div className={styles["inputs_container"]}>
-            {data.exercises.map((item, i) => (
+            {data?.map((item, i) => (
               <div className={styles.item_box} key={i}>
-                {indexArray.includes(i) ? (
-                  <div className={styles.item_box_svg}>
-                    <img src="/img/active_item.svg" alt="active_item" />
-                  </div>
-                ) : (
-                  ""
-                )}
+                {indexArray.includes(i)
+                  ? // <div className={styles.item_box_svg}>
+                    //   <img src="/img/active_item.svg" alt="active_item" />
+                    // </div>
+                    ""
+                  : ""}
                 <div
                   onClick={(e) => {
                     e.stopPropagation();
                     handleActive(i);
+                    setChoosedWorkout(item);
+                    // localStorage.setItem("workout-id", item._id);
+                    setShow(false);
                   }}
                   className={
-                    indexArray.includes(i) ? styles.item_active : styles.item
+                    // indexArray.includes(i) ? styles.item_active : styles.item
+                    styles.item
                   }
                 >
-                  <p className={styles.item_title}>{item.title}</p>
-                  <p className={styles.item_subtitle}>{item.subtitle}</p>
+                  <p className={styles.item_title}>
+                    {item.name.includes("/")
+                      ? item.name.slice(0, item.name.indexOf("/"))
+                      : item.name}
+                  </p>
+                  <p className={styles.item_subtitle}>
+                    {item.name.includes("/")
+                      ? item.name.slice(
+                          item.name.indexOf("/") + 2,
+                          item.name.lastIndexOf("/")
+                        )
+                      : ""}
+                  </p>
                 </div>
               </div>
             ))}

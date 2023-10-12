@@ -48,12 +48,13 @@ const MainPage = () => {
             <Sticker />
           </div>
           <div className={styles.content_main}>
-            {allCourses.map((item) => (
+            {allCourses?.map((item, index) => (
               <div
                 className={styles.img_box}
                 onClick={() => {
                   navigate(`/course/${item._id}`);
                 }}
+                key={index}
               >
                 <p className={styles.img_title}>{item.name}</p>
                 <img

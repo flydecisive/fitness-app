@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useAllowedContext } from "../../contexts/allowed";
 import AllowedCourse from "./allowed-course/allowed-course";
 import { DisallowedCourse } from "./disallowed-course/disallowed-course";
 import { useParams } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useCourseContext } from "../../contexts/course";
 
@@ -11,7 +12,6 @@ function CoursePage() {
   const params = useParams();
   const id = params.id;
   const allCourses = useSelector((store) => store.courses.allCourses);
-  // const [course, setCourse] = useState({});
   const { course, setCourse } = useCourseContext();
 
   useEffect(() => {

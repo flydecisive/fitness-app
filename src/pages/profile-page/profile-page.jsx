@@ -9,7 +9,6 @@ import ChoseTraining from "../../components/modals/chose-training/chose-training
 import { useEmailContext } from "../../contexts/user";
 import { useSelector } from "react-redux";
 
-
 const ProfilePage = () => {
   const { email } = useEmailContext();
   const allCourses = useSelector((store) => store.courses.allCourses);

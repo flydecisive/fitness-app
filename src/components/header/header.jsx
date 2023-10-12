@@ -1,6 +1,5 @@
 import styles from "./header.module.css";
 import Logo from "../logo/logo";
-import { useLocation } from "react-router";
 import UserItem from "../user-item/user-item";
 import { NavLink } from "react-router-dom";
 import { useEmailContext } from "../../contexts/user";

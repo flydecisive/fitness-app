@@ -49,6 +49,7 @@
 }
 .item_box {
   position: relative;
+  cursor: pointer;
 }
 .item_box_svg {
   right: 15px;

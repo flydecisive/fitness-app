@@ -2,27 +2,60 @@ import styles from "./allowed-course.module.css";
 import Button from "../../../components/button/button";
 import ProgressForm from "../../../components/progress-form/progress-form";
 import Header from "../../../components/header/header";
-import { useState } from "react";
-import Congrat from "../../../components/congrat/congrat";
+import { useEffect, useState } from "react";
 import ExerciseProgress from "../../../components/exercise-progress/exercise-progress";
+import { getWorkouts } from "../../../api";
+import ChoseTraining from "../../../components/modals/chose-training/chose-training";
 
 function AllowedCourse({ course }) {
-  console.log(course);
-  const [show, setShow] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [choosedWorkout, setChoosedWorkout] = useState();
+  const [currentWorkouts, setCurrentWorkouts] = useState();
+  const [show, setShow] = useState(!choosedWorkout);
 
-  return (
+  const courseWorkouts = course?.workouts;
+  console.log(choosedWorkout);
+
+  useEffect(() => {
+    getWorkouts().then((responseData) => {
+      const keys = Object.keys(responseData);
+      const workouts = [];
+      for (let i = 0; i < courseWorkouts?.length; i++) {
+        for (let j = 0; j < keys?.length; j++) {
+          if (keys[j] === courseWorkouts[i]) {
+            workouts.push(responseData[keys[j]]);
+          }
+        }
+      }
+      setCurrentWorkouts(workouts);
+    });
+  }, [courseWorkouts]);
+
+  function createValidVideoUrl(url) {
+    const lastPath = url?.slice(url.lastIndexOf("/"));
+
+    return `https://www.youtube.com/embed${lastPath}`;
+  }
+
+  return choosedWorkout ? (
     <div className={`container`}>
       <Header color="black" />
-      <h2 className={styles.heading}>{course.name}</h2>
+      <h2 className={styles.heading}>{course?.name}</h2>
       <div className={styles.path}>
-        Красота и здоровье / Йога на каждый день / 2 день
+        {choosedWorkout?.name?.includes("/")
+          ? choosedWorkout?.name.slice(0, choosedWorkout?.name.lastIndexOf("/"))
+          : choosedWorkout?.name}
       </div>
       <div className={styles.video}>
-        <video controls>
-          <source src="" type="video/mp4" />
-          <source src="" type="video/webm" />
-        </video>
+        <iframe
+          width="100%"
+          height="100%"
+          src={createValidVideoUrl(choosedWorkout?.video_url)}
+          title="YouTube video player"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          frameBorder={0}
+        ></iframe>
       </div>
       <div className={styles.content}>
         <div className={styles.exercices}>
@@ -77,6 +110,13 @@ function AllowedCourse({ course }) {
         </div>
       </div>
     </div>
+  ) : (
+    <ChoseTraining
+      data={currentWorkouts}
+      show={show}
+      setShow={setShow}
+      setChoosedWorkout={setChoosedWorkout}
+    />
   );
 }
 
