@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/fitness-app/static/css/main.1326560b.css",
+    "main.js": "/fitness-app/static/js/main.d62390eb.js",
+    "static/media/Stratos-Regular.woff": "/fitness-app/static/media/Stratos-Regular.d20eb275042a513c8d55.woff",
+    "static/media/Stratos-Regular.woff2": "/fitness-app/static/media/Stratos-Regular.ec4882423f79afa46408.woff2",
+    "static/media/sale_sticker_1.svg": "/fitness-app/static/media/sale_sticker_1.4328e56fb2ac7ce5803da4c33f2cd3e2.svg",
+    "static/media/call.svg": "/fitness-app/static/media/call.4adca43ff65250800c6816ec3ef88702.svg",
+    "static/media/logo.svg": "/fitness-app/static/media/logo.da3e1ffe44a8aaf7b7483afa556ada0f.svg",
+    "index.html": "/fitness-app/index.html",
+    "static/media/exit.svg": "/fitness-app/static/media/exit.1006715628685bc38951cc9977d8b981.svg",
+    "main.1326560b.css.map": "/fitness-app/static/css/main.1326560b.css.map",
+    "main.d62390eb.js.map": "/fitness-app/static/js/main.d62390eb.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.1326560b.css",
+    "static/js/main.d62390eb.js"
+  ]
+}
