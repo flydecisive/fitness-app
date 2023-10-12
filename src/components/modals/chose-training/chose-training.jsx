@@ -54,6 +54,7 @@ const ChoseTraining = ({ data, setShow, show, setChoosedWorkout }) => {
                     e.stopPropagation();
                     handleActive(i);
                     setChoosedWorkout(item);
+                    // localStorage.setItem("workout-id", item._id);
                     setShow(false);
                   }}
                   className={

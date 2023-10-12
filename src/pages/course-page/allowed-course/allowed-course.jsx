@@ -9,9 +9,9 @@ import ChoseTraining from "../../../components/modals/chose-training/chose-train
 
 function AllowedCourse({ course }) {
   const [progress, setProgress] = useState(0);
-  const [choosedWorkout, setChoosedWorkout] = useState(false);
-  const [show, setShow] = useState(!choosedWorkout);
+  const [choosedWorkout, setChoosedWorkout] = useState();
   const [currentWorkouts, setCurrentWorkouts] = useState();
+  const [show, setShow] = useState(!choosedWorkout);
 
   const courseWorkouts = course?.workouts;
   console.log(choosedWorkout);
@@ -32,9 +32,9 @@ function AllowedCourse({ course }) {
   }, [courseWorkouts]);
 
   function createValidVideoUrl(url) {
-    const lastPath = url.slice(url.lastIndexOf("/"));
+    const lastPath = url?.slice(url.lastIndexOf("/"));
 
-    return `https://youtube.com/embed${lastPath}`;
+    return `https://www.youtube.com/embed${lastPath}`;
   }
 
   return choosedWorkout ? (
@@ -42,15 +42,11 @@ function AllowedCourse({ course }) {
       <Header color="black" />
       <h2 className={styles.heading}>{course?.name}</h2>
       <div className={styles.path}>
-        {choosedWorkout?.name.includes("/")
+        {choosedWorkout?.name?.includes("/")
           ? choosedWorkout?.name.slice(0, choosedWorkout?.name.lastIndexOf("/"))
           : choosedWorkout?.name}
       </div>
       <div className={styles.video}>
-        {/* <video controls>
-          <source src={choosedWorkout.video_url} type="video/mp4" />
-          <source src={choosedWorkout.video_url} type="video/webm" />
-        </video> */}
         <iframe
           width="100%"
           height="100%"
@@ -58,6 +54,7 @@ function AllowedCourse({ course }) {
           title="YouTube video player"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
+          frameBorder={0}
         ></iframe>
       </div>
       <div className={styles.content}>

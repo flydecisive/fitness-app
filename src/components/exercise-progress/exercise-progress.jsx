@@ -9,17 +9,17 @@ function ExerciseProgress({ color, value, bgColor, max }) {
     borderColor: color,
   };
 
+  const width = value / max >= 1 ? 100 : (value / max) * 100;
+
   const fillerStyles = {
     height: "100%",
-    width: `${value ? (value / max) * 100 : 0}%`,
+    width: `${value ? width : 0}%`,
     backgroundColor: color,
     borderTopLeftRadius: "inherit",
     borderBottomLeftRadius: "inherit",
-    borderTopRightRadius: `${
-      (value / max) * 100 === 100 ? "inherit" : "unset"
-    }`,
+    borderTopRightRadius: `${(value / max) * 100 >= 100 ? "inherit" : "unset"}`,
     borderBottomRightRadius: `${
-      (value / max) * 100 === 100 ? "inherit" : "unset"
+      (value / max) * 100 >= 100 ? "inherit" : "unset"
     }`,
     textAlign: "right",
   };

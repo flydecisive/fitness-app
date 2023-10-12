@@ -5,6 +5,7 @@ import AuthorizationPage from "../pages/authorization-page/authorization-page";
 import ProfilePage from "../pages/profile-page/profile-page";
 import { useAllowedContext } from "../contexts/allowed";
 import CoursePage from "../pages/course-page/course-page";
+import NotFound from "../components/not-found/not-found";
 
 function AppRoutes() {
   const { isAllowed } = useAllowedContext();
@@ -18,9 +19,7 @@ function AppRoutes() {
       <Route path="/login" element={<AuthorizationPage />} />
       <Route path="/registration" element={<AuthorizationPage />} />
       <Route path="/course/:id" element={<CoursePage />} />
-
-      {/* <Route path="/course" element={<CoursePage />} />
-      <Route path="/course/:id" element={<DisallowedCoursePage />} /> */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
