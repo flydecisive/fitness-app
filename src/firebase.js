@@ -3,6 +3,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   getAuth,
+  updateEmail,
+  updateCurrentUser,
+  updatePassword,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -29,4 +32,12 @@ export const createUser = async (email, password) => {
 
 export const signInUser = async (email, password) => {
   return signInWithEmailAndPassword(getAuth(app), email, password);
+};
+
+export const changeLogin = async (email) => {
+  return updateEmail(getAuth().currentUser, email);
+};
+
+export const changePassword = async (password) => {
+  return updatePassword(getAuth().currentUser, password);
 };
