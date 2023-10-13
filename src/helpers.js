@@ -14,3 +14,9 @@ export const handleImg = (item) => {
       return "/img/stap.png";
   }
 };
+
+export function createValidVideoUrl(url) {
+  const lastPath = url?.slice(url.lastIndexOf("/"));
+
+  return `https://www.youtube.com/embed${lastPath}`;
+}

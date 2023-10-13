@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import ExerciseProgress from "../../../components/exercise-progress/exercise-progress";
 import { getWorkouts } from "../../../api";
 import ChoseTraining from "../../../components/modals/chose-training/chose-training";
+import Congrat from "../../../components/congrat/congrat";
+import { createValidVideoUrl } from "../../../helpers";
 
 function AllowedCourse({ course }) {
   const [progress, setProgress] = useState(0);
@@ -17,6 +19,7 @@ function AllowedCourse({ course }) {
   const [exercisesForProgress, setExercisesForProgress] = useState([]);
   const [exercises, setExercises] = useState([]);
   const [exercisesNames, setExercisesNames] = useState();
+  const [showCongrat, setShowCongrat] = useState(false);
 
   const courseWorkouts = course?.workouts;
 
@@ -71,11 +74,13 @@ function AllowedCourse({ course }) {
     });
   }, [courseWorkouts]);
 
-  function createValidVideoUrl(url) {
-    const lastPath = url?.slice(url.lastIndexOf("/"));
+  const toggleCongratMessage = () => {
+    setTimeout(() => {
+      setShowCongrat(false);
+    }, 1500);
 
-    return `https://www.youtube.com/embed${lastPath}`;
-  }
+    return <Congrat />;
+  };
 
   return choosedWorkout ? (
     <div className={`container`}>
@@ -116,9 +121,10 @@ function AllowedCourse({ course }) {
             show={show}
             setShow={setShow}
             setProgress={setProgress}
+            setShowCongrat={setShowCongrat}
             exercisesNames={exercisesNames}
           />
-          {/* <Congrat /> */}
+          {showCongrat ? toggleCongratMessage() : ""}
         </div>
         <div className={styles.progress}>
           <h3 className={`${styles.title} ${styles["title-margin"]}`}>

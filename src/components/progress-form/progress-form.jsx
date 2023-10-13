@@ -6,7 +6,13 @@ import { useEffect, useRef, useState } from "react";
 
 const values = [];
 
-function ProgressForm({ show, setShow, setProgress, exercisesNames }) {
+function ProgressForm({
+  show,
+  setShow,
+  setProgress,
+  exercisesNames,
+  setShowCongrat,
+}) {
   const modalRefProgress = useRef();
   const [formItems, setFormItems] = useState([]);
 
@@ -74,6 +80,7 @@ function ProgressForm({ show, setShow, setProgress, exercisesNames }) {
           onClick={() => {
             setShow(false);
             setProgress(values);
+            setShowCongrat(true);
           }}
         />
       </div>
