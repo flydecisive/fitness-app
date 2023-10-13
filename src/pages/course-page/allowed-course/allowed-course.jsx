@@ -21,11 +21,6 @@ function AllowedCourse({ course }) {
   const courseWorkouts = course?.workouts;
 
   useEffect(() => {
-    console.log("changed");
-    console.log(progress);
-  }, [progress]);
-
-  useEffect(() => {
     if (choosedWorkout?.exercises) {
       const keys = Object.keys(choosedWorkout.exercises);
       setExercisesNames(keys);
