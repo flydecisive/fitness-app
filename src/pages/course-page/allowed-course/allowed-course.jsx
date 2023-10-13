@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import styles from "./allowed-course.module.css";
 import Button from "../../../components/button/button";
 import ProgressForm from "../../../components/progress-form/progress-form";
@@ -12,9 +13,53 @@ function AllowedCourse({ course }) {
   const [choosedWorkout, setChoosedWorkout] = useState();
   const [currentWorkouts, setCurrentWorkouts] = useState();
   const [show, setShow] = useState(!choosedWorkout);
+  const [workoutIndex, setWorkoutIndex] = useState();
+  const [exercisesForProgress, setExercisesForProgress] = useState([]);
+  const [exercises, setExercises] = useState([]);
+  const [exercisesNames, setExercisesNames] = useState();
 
   const courseWorkouts = course?.workouts;
-  console.log(choosedWorkout);
+
+  useEffect(() => {
+    console.log("changed");
+    console.log(progress);
+  }, [progress]);
+
+  useEffect(() => {
+    if (choosedWorkout?.exercises) {
+      const keys = Object.keys(choosedWorkout.exercises);
+      setExercisesNames(keys);
+      const exercisesForProgressData = keys.map((elem, index) => {
+        return (
+          <div key={index + 10} className={styles["progress-item-wrapper"]}>
+            <p>{elem.slice(0, elem.indexOf("("))}</p>
+            <ExerciseProgress
+              id={index + 1}
+              color={"#565eef"}
+              value={progress[index + 1]}
+              max={choosedWorkout.exercises[elem]}
+              bgColor={"#edecff"}
+            />
+          </div>
+        );
+      });
+
+      const exercisesData = keys.map((elem, index) => {
+        return <li key={index}>{elem}</li>;
+      });
+
+      setExercisesForProgress(exercisesForProgressData);
+      setExercises(exercisesData);
+    }
+  }, [choosedWorkout, progress]);
+
+  useEffect(() => {
+    for (let i = 0; i < currentWorkouts?.length; i++) {
+      if (currentWorkouts[i]._id === choosedWorkout?._id) {
+        setWorkoutIndex(i);
+      }
+    }
+  }, [choosedWorkout]);
 
   useEffect(() => {
     getWorkouts().then((responseData) => {
@@ -60,29 +105,38 @@ function AllowedCourse({ course }) {
       <div className={styles.content}>
         <div className={styles.exercices}>
           <h3 className={styles.title}>Упражнения</h3>
-          <ul className={`${styles.list} small-text`}>
-            <li>Наклон вперед (10 повторений)</li>
-            <li>Наклон назад (10 повторений)</li>
-            <li>Поднятие ног, согнутых в коленях (5 повторений)</li>
-          </ul>
-          <Button
-            text={"Заполнить свой прогресс"}
-            color={"purple"}
-            onClick={() => setShow(true)}
-          />
+          {choosedWorkout?.exercises ? (
+            <>
+              <ul className={`${styles.list} small-text`}>{exercises}</ul>
+              <Button
+                text={"Заполнить свой прогресс"}
+                color={"purple"}
+                onClick={() => setShow(true)}
+              />
+            </>
+          ) : (
+            <p>Нет доступных упражнений</p>
+          )}
           <ProgressForm
             show={show}
             setShow={setShow}
             setProgress={setProgress}
+            exercisesNames={exercisesNames}
           />
           {/* <Congrat /> */}
         </div>
         <div className={styles.progress}>
           <h3 className={`${styles.title} ${styles["title-margin"]}`}>
-            Мой прогресс по тренировке 2:
+            Мой прогресс по тренировке {workoutIndex + 1}:
           </h3>
-          <div className={`${styles["progress-container"]} small-text`}>
-            <p>Наклон вперед</p>
+          {choosedWorkout?.exercises ? (
+            <div className={`${styles["progress-container"]} small-text`}>
+              {exercisesForProgress}
+            </div>
+          ) : (
+            <p>Нет доступных упражнений</p>
+          )}
+          {/* <p>Наклон вперед</p>
             <ExerciseProgress
               id="1"
               color={"#565eef"}
@@ -105,8 +159,7 @@ function AllowedCourse({ course }) {
               value={progress[3]}
               max={5}
               bgColor={"#f9ebff"}
-            />
-          </div>
+            /> */}
         </div>
       </div>
     </div>
