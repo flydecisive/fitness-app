@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Header from "../../components/header/header";
 import Button from "../../components/button/button";
 import styles from "./profile-page.module.css";
