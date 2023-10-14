@@ -18,10 +18,15 @@ function CoursePage() {
   const { course, setCourse } = useCourseContext();
   const [usersCoursesFromApi, setUsersCoursesFromApi] = useState();
   const [isUserCourse, setIsUserCourse] = useState(false);
+  const [firstRender, setFirstRender] = useState(true);
 
   // const [usersCourses, setUsersCourses] = useState();
+  useEffect(() => {
+    setFirstRender(false);
+  }, []);
 
   useEffect(() => {
+    if (firstRender) return;
     getUsersWorkouts().then((responseData) => {
       setUsersCoursesFromApi(responseData[uid].courses);
     });
