@@ -19,11 +19,9 @@ function CoursePage() {
   const [usersCoursesFromApi, setUsersCoursesFromApi] = useState();
   const [isUserCourse, setIsUserCourse] = useState(false);
 
-  // const [usersCourses, setUsersCourses] = useState();
-
   useEffect(() => {
     getUsersWorkouts().then((responseData) => {
-      setUsersCoursesFromApi(responseData[uid].courses);
+      setUsersCoursesFromApi(responseData[uid]?.courses);
     });
   }, []);
 
@@ -32,20 +30,6 @@ function CoursePage() {
       setIsUserCourse(usersCoursesFromApi.includes(id));
     }
   }, [usersCoursesFromApi]);
-
-  // useEffect(() => {
-  //   if (allCourses && usersCoursesFromApi) {
-  //     const courses = [];
-  //     for (let i = 0; i < allCourses.length; i++) {
-  //       for (let j = 0; j < usersCoursesFromApi.length; j++) {
-  //         if (allCourses[i]._id === usersCoursesFromApi[j]) {
-  //           courses.push(allCourses[i]);
-  //         }
-  //       }
-  //     }
-  //     setUsersCourses(courses);
-  //   }
-  // }, [usersCoursesFromApi]);
 
   useEffect(() => {
     if (allCourses) {
