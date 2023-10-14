@@ -36,11 +36,15 @@ export const signInUser = async (email, password) => {
 };
 
 export const changeLogin = async (email) => {
-  return updateEmail(getAuth().currentUser, email);
+  const user = getAuth().currentUser;
+
+  return updateEmail(user, email);
 };
 
-export const changePassword = async (password) => {
-  return updatePassword(getAuth().currentUser, password);
+export const changePassword = async (newPassword) => {
+  const user = getAuth().currentUser;
+
+  return updatePassword(user, newPassword);
 };
 
 // async function getUsersCourses(db) {

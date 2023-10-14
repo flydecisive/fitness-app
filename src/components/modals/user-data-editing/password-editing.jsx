@@ -5,28 +5,25 @@ import Input from "../../input/input";
 import Logo from "../../logo/logo";
 import styles from "./password-editing.module.css";
 import { changePassword } from "../../../firebase";
-import { useAllowedContext } from "../../../contexts/allowed";
-import { useEmailContext, useUidContext } from "../../../contexts/user";
+// import { useAllowedContext } from "../../../contexts/allowed";
+// import { useUidContext } from "../../../contexts/user";
 
 const PasswordEditing = ({ show, setShow }) => {
   const [error, setError] = useState(null);
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
 
-  const { setIsAllowed } = useAllowedContext();
-  const { setUid } = useUidContext();
-  const { setEmail } = useEmailContext();
+  // const { setIsAllowed } = useAllowedContext();
+  // const { setUid } = useUidContext();
 
-  const setData = (data) => {
-    localStorage.setItem("uid", data?.uid);
-    localStorage.setItem("email", data?.email);
-    setUid(data?.uid);
-    setEmail(data?.email);
+  // const setData = (data) => {
+  //   localStorage.setItem("uid", data?.uid);
+  //   setUid(data?.uid);
 
-    if (data) {
-      setIsAllowed(true);
-    }
-  };
+  //   if (data) {
+  //     setIsAllowed(true);
+  //   }
+  // };
 
   const saveData = () => {
     if (password?.length === 0) {
@@ -36,16 +33,17 @@ const PasswordEditing = ({ show, setShow }) => {
     } else if (repeatPassword !== password) {
       setError("Введенные пароли отличаются");
     } else {
+      console.log(password);
       changePassword(password)
         .then((response) => {
           console.log(response);
           return response.user;
         })
         .catch((err) => {
-          console.log(error);
+          console.log(err);
         })
         .then((responseData) => {
-          setData(responseData);
+          // setData(responseData);
           setShow(false);
           alert("пароль изменен");
         });
