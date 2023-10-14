@@ -115,7 +115,7 @@ function AllowedCourse({ course }) {
               />
             </>
           ) : (
-            <p>Нет доступных упражнений</p>
+            <p className="small-text">Нет доступных упражнений</p>
           )}
           <ProgressForm
             show={show}
@@ -135,7 +135,7 @@ function AllowedCourse({ course }) {
               {exercisesForProgress}
             </div>
           ) : (
-            <p>Нет доступных упражнений</p>
+            <p className="small-text">Нет доступных упражнений</p>
           )}
           {/* <p>Наклон вперед</p>
             <ExerciseProgress

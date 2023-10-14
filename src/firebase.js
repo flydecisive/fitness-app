@@ -4,10 +4,10 @@ import {
   signInWithEmailAndPassword,
   getAuth,
   updateEmail,
-  updateCurrentUser,
   updatePassword,
 } from "firebase/auth";
 import { initializeApp } from "firebase/app";
+// import { getFirestore, getDocs, collection } from "firebase/firestore/lite";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -25,6 +25,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+// const db = getFirestore(app);
 
 export const createUser = async (email, password) => {
   return createUserWithEmailAndPassword(getAuth(app), email, password);
@@ -41,3 +42,13 @@ export const changeLogin = async (email) => {
 export const changePassword = async (password) => {
   return updatePassword(getAuth().currentUser, password);
 };
+
+// async function getUsersCourses(db) {
+//   const usersCol = collection(db, "users");
+//   const usersSnapshot = await getDocs(usersCol);
+//   const usersList = usersSnapshot.docs.map((doc) => doc.data());
+//   return usersList;
+// }
+
+// const usersCourses = await getUsersCourses(db);
+// console.log(usersCourses);

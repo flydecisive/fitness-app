@@ -4,7 +4,6 @@ import Button from "../../button/button";
 import Input from "../../input/input";
 import Logo from "../../logo/logo";
 import styles from "./login-editing.module.css";
-import { getAuth } from "firebase/auth";
 import { useAllowedContext } from "../../../contexts/allowed";
 import { useEmailContext, useUidContext } from "../../../contexts/user";
 import { changeLogin } from "../../../firebase";

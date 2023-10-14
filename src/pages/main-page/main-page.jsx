@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { handleImg } from "../../helpers";
 
-const MainPage = () => {
+function MainPage() {
   const handleTop = () => {
     window.scrollTo({
       top: 0,
@@ -58,6 +58,6 @@ const MainPage = () => {
       </div>
     </section>
   );
-};
+}
 
 export default MainPage;
