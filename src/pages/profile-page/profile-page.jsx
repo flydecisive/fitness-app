@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Header from "../../components/header/header";
 import Button from "../../components/button/button";
 import styles from "./profile-page.module.css";
@@ -5,93 +6,45 @@ import ButtonArrow from "../../components/button/button-arrow";
 import { useEffect, useState } from "react";
 import PasswordEditing from "../../components/modals/user-data-editing/password-editing";
 import LoginEditing from "../../components/modals/user-data-editing/login-editing";
-import ChoseTraining from "../../components/modals/chose-training/chose-training";
+// import ChoseTraining from "../../components/modals/chose-training/chose-training";
 import { useEmailContext } from "../../contexts/user";
 import { useSelector } from "react-redux";
+import { getUsersWorkouts } from "../../api";
+import { handleImg } from "../../helpers";
+import { useNavigate } from "react-router";
 
 const ProfilePage = () => {
   const { email } = useEmailContext();
+  const uid = localStorage.getItem("uid");
   const allCourses = useSelector((store) => store.courses.allCourses);
-
-  console.log(allCourses);
-  const data = [
-    {
-      title: "Йога",
-      img: "/img/yoga.png",
-      exercises: [
-        {
-          title: "Утренняя практика",
-          subtitle: "Йога на каждый день / 1 день",
-        },
-        {
-          title: "Красота и здоровье",
-          subtitle: "Йога на каждый день / 2 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Йога на каждый день / 3 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Йога на каждый день / 4 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Йога на каждый день / 5 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Йога на каждый день / 6 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Йога на каждый день / 7 день",
-        },
-      ],
-    },
-    {
-      title: "Стретчинг",
-      img: "/img/stratching.png",
-      exercises: [
-        {
-          title: "Утренняя практика",
-          subtitle: "Стретчинг на каждый день / 1 день",
-        },
-        {
-          title: "Красота и здоровье",
-          subtitle: "Стретчинг на каждый день / 2 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Стретчинг на каждый день / 3 день",
-        },
-      ],
-    },
-    {
-      title: "Танцевальный фитнес",
-      img: "/img/dance.png",
-      exercises: [
-        {
-          title: "Утренняя практика",
-          subtitle: "Фитнес на каждый день / 1 день",
-        },
-        {
-          title: "Красота и здоровье",
-          subtitle: "Фитнес на каждый день / 2 день",
-        },
-        {
-          title: "Асаны стоя",
-          subtitle: "Фитнес на каждый день / 3 день",
-        },
-      ],
-    },
-  ];
-
+  const [usersCoursesFromApi, setUsersCoursesFromApi] = useState();
+  const [usersCourses, setUsersCourses] = useState();
   const [modalPasswordOpen, setModalPasswordOpen] = useState(false);
   const [modalLoginOpen, setModalLoginOpen] = useState(false);
-  const [modalTrainingsOpen, setModalTrainingsOpen] = useState(false);
-  const [itemTrain, setItemTrain] = useState();
+  // const [modalTrainingsOpen, setModalTrainingsOpen] = useState(false);
+  // const [itemTrain, setItemTrain] = useState();
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getUsersWorkouts().then((responseData) => {
+      setUsersCoursesFromApi(responseData[uid].courses);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (allCourses && usersCoursesFromApi) {
+      const courses = [];
+      for (let i = 0; i < allCourses.length; i++) {
+        for (let j = 0; j < usersCoursesFromApi.length; j++) {
+          if (allCourses[i]._id === usersCoursesFromApi[j]) {
+            courses.push(allCourses[i]);
+          }
+        }
+      }
+      setUsersCourses(courses);
+    }
+  }, [usersCoursesFromApi]);
 
   const handleOpenLogin = () => {
     setModalLoginOpen(true);
@@ -101,17 +54,17 @@ const ProfilePage = () => {
     setModalPasswordOpen(true);
     setShow(true);
   };
-  const handleOpenTrainings = (i) => {
-    setModalTrainingsOpen(true);
-    setItemTrain(data[i]);
-    setShow(true);
-  };
+  // const handleOpenTrainings = (i) => {
+  //   setModalTrainingsOpen(true);
+  //   setItemTrain(usersCourses[i]);
+  //   setShow(true);
+  // };
 
   useEffect(() => {
     if (show === false) {
       setModalLoginOpen(false);
       setModalPasswordOpen(false);
-      setModalTrainingsOpen(false);
+      // setModalTrainingsOpen(false);
     }
   }, [show]);
 
@@ -120,9 +73,11 @@ const ProfilePage = () => {
       return <PasswordEditing show={show} setShow={setShow} />;
     } else if (modalLoginOpen) {
       return <LoginEditing show={show} setShow={setShow} />;
-    } else if (modalTrainingsOpen) {
-      return <ChoseTraining data={itemTrain} setShow={setShow} show={show} />;
-    } else {
+    }
+    // else if (modalTrainingsOpen) {
+    //   return <ChoseTraining data={itemTrain} setShow={setShow} show={show} />;
+    // }
+    else {
       return "";
     }
   }
@@ -153,12 +108,18 @@ const ProfilePage = () => {
         <div className={styles.content_profile}>
           <p className={styles.content_title}>Мои курсы</p>
           <div className={styles.content_main}>
-            {data.map((item, i) => (
+            {usersCourses?.map((item, i) => (
               <div className={styles.img_box} key={i}>
-                <p className={styles.img_title}>{item.title}</p>
-                <img className={styles.img} src={item.img} alt="fitness_img" />
+                <p className={styles.img_title}>{item.name}</p>
+                <img
+                  className={styles.img}
+                  src={handleImg(item)}
+                  alt="fitness_img"
+                />
                 <div
-                  onClick={() => handleOpenTrainings(i)}
+                  onClick={() => {
+                    navigate(`/course/${item._id}`);
+                  }}
                   className={styles.button}
                 >
                   <ButtonArrow text="Перейти →" />

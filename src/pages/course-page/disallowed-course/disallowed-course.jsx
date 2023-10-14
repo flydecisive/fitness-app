@@ -54,7 +54,7 @@ export function DisallowedCourse({ course }) {
         </div>
       </div>
       <p className={`${styles.text} small-text`}>{course?.description}</p>
-      <RecordForm />
+      <RecordForm courseId={course?._id} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-function ExerciseProgress({ color, value, bgColor, max }) {
+function ExerciseProgress({ color, value, bgColor, max, id }) {
   const containerStyles = {
     width: "100%",
     height: 36,

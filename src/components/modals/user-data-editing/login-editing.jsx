@@ -4,9 +4,8 @@ import Button from "../../button/button";
 import Input from "../../input/input";
 import Logo from "../../logo/logo";
 import styles from "./login-editing.module.css";
-import { getAuth } from "firebase/auth";
-import { useAllowedContext } from "../../../contexts/allowed";
-import { useEmailContext, useUidContext } from "../../../contexts/user";
+// import { useAllowedContext } from "../../../contexts/allowed";
+// import { useUidContext } from "../../../contexts/user";
 import { changeLogin } from "../../../firebase";
 
 const LoginEditing = ({ show, setShow }) => {
@@ -35,19 +34,17 @@ const LoginEditing = ({ show, setShow }) => {
   }, [show]);
 
   //проверка логина
-  const { setIsAllowed } = useAllowedContext();
-  const { setUid } = useUidContext();
-  const { setEmail } = useEmailContext();
-  const setData = (data) => {
-    localStorage.setItem("uid", data?.uid);
-    localStorage.setItem("email", data?.email);
-    setUid(data?.uid);
-    setEmail(data?.email);
+  // const { setIsAllowed } = useAllowedContext();
+  // const { setUid } = useUidContext();
+  // const setData = (data) => {
+  //   localStorage.setItem("uid", data?.uid);
+  //   setUid(data?.uid);
 
-    if (data) {
-      setIsAllowed(true);
-    }
-  };
+  //   if (data) {
+  //     setIsAllowed(true);
+  //   }
+  // };
+
   const saveData = () => {
     console.log(login);
     if (login?.length === 0) {
@@ -63,12 +60,12 @@ const LoginEditing = ({ show, setShow }) => {
           return response.user;
         })
         .catch((err) => {
-          console.log(error);
+          console.log(err);
         })
         .then((responseData) => {
-          setData(responseData);
+          // setData(responseData);
           setShow(false);
-          alert("логин изменен");
+          alert("email изменен");
         });
     }
   };
@@ -87,7 +84,7 @@ const LoginEditing = ({ show, setShow }) => {
               name="login"
               value={login}
               type="text"
-              placeholder={"Логин"}
+              placeholder={"Email"}
               onChange={(event) => {
                 setLogin(event.target.value);
               }}
@@ -96,7 +93,7 @@ const LoginEditing = ({ show, setShow }) => {
               name="repeat-login"
               value={repeatLogin}
               type="text"
-              placeholder={"Повторите логин"}
+              placeholder={"Повторите email"}
               onChange={(event) => setRepeatLogin(event.target.value)}
             />
           </div>

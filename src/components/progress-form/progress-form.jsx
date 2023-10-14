@@ -2,12 +2,45 @@
 import styles from "./progress-form.module.css";
 import Button from "../button/button";
 import Input from "../input/input";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const values = [];
 
-function ProgressForm({ show, setShow, setProgress }) {
+function ProgressForm({
+  show,
+  setShow,
+  setProgress,
+  exercisesNames,
+  setShowCongrat,
+}) {
   const modalRefProgress = useRef();
+  const [formItems, setFormItems] = useState([]);
+
+  useEffect(() => {
+    if (exercisesNames) {
+      const data = exercisesNames.map((elem) => {
+        return elem.slice(0, elem.indexOf("(")).trim().toLowerCase();
+      });
+
+      const forms = data.map((elem, index) => {
+        return (
+          <form className={styles.form} key={index}>
+            <label htmlFor={`#${index + 1}`}>
+              Сколько раз вы сделали {elem}?
+            </label>
+            <Input
+              type={"text"}
+              placeholder={"Введите значение"}
+              id={index + 1}
+              onInput={(e) => inputHandler(e)}
+            />
+          </form>
+        );
+      });
+
+      setFormItems(forms);
+    }
+  }, [exercisesNames]);
 
   const inputHandler = (e) => {
     const id = e.target.id;
@@ -39,41 +72,15 @@ function ProgressForm({ show, setShow, setProgress }) {
     return (
       <div ref={modalRefProgress} className={styles.wrapper}>
         <h2 className={styles.heading}>Мой прогресс</h2>
-        <form className={styles.form}>
-          <label htmlFor="#1">Сколько раз вы сделали наклоны вперед?</label>
-          <Input
-            type={"text"}
-            placeholder={"Введите значение"}
-            id="1"
-            onInput={(e) => inputHandler(e)}            
-          />
-        </form>
-        <form className={styles.form}>
-          <label htmlFor="#2">Сколько раз вы сделали наклоны назад?</label>
-          <Input
-            type={"text"}
-            placeholder={"Введите значение"}
-            id="2"
-            onInput={(e) => inputHandler(e)}
-          />
-        </form>
-        <form className={styles.form}>
-          <label htmlFor="#3">
-            Сколько раз вы сделали поднятие ног, согнутых в коленях?
-          </label>
-          <Input
-            type={"text"}
-            placeholder={"Введите значение"}
-            id="3"
-            onInput={(e) => inputHandler(e)}
-          />
-        </form>
+        {formItems}
+
         <Button
           text={"Отправить"}
           color={"purple"}
           onClick={() => {
             setShow(false);
             setProgress(values);
+            setShowCongrat(true);
           }}
         />
       </div>

@@ -2,9 +2,12 @@ import styles from "./record-form.module.css";
 import Button from "../../../../../components/button/button";
 import { ReactComponent as Call } from "../../../../../assets/img/call.svg";
 import { useNavigate } from "react-router";
+import { useAllowedContext } from "../../../../../contexts/allowed";
+// import database from "../../../../../firebase";
 
-function RecordForm() {
+function RecordForm({ courseId }) {
   const navigate = useNavigate();
+  const { isAllowed } = useAllowedContext();
 
   return (
     <div className={styles.container}>
@@ -18,7 +21,7 @@ function RecordForm() {
           color={"purple"}
           text={"Записаться на тренировку"}
           onClick={() => {
-            navigate("/login");
+            isAllowed ? navigate(`/profile`) : navigate("/login");
           }}
         />
       </div>
