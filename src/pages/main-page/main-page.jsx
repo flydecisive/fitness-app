@@ -5,6 +5,7 @@ import ButtonArrow from "../../components/button/button-arrow";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { handleImg } from "../../helpers";
+import styled from "styled-components";
 
 function MainPage() {
   const handleTop = () => {
@@ -18,44 +19,38 @@ function MainPage() {
   const allCourses = useSelector((store) => store.courses.allCourses);
 
   return (
-    <section className={styles.main}>
-      <div className="container">
-        <Header color="white" />
-        <div className={styles.content}>
-          <div className={styles.content_header}>
-            <div>
-              <p className={styles.title}>Онлайн-тренировки для занятий дома</p>
-              <p className={styles.subtitle}>
-                Начните заниматься спортом и улучшите качество жизни
-              </p>
-            </div>
-            <Sticker />
+    <section className={`${styles.main} container`}>
+      <Header color="white" />
+      <div className={styles.content}>
+        <div className={styles.content_header}>
+          <div>
+            <p className={styles.title}>Онлайн-тренировки для занятий дома</p>
+            <p className={styles.subtitle}>
+              Начните заниматься спортом и улучшите качество жизни
+            </p>
           </div>
-          <div className={styles.content_main}>
-            {allCourses?.map((item, index) => (
-              <div
-                className={styles.img_box}
-                onClick={() => {
-                  navigate(`/course/${item._id}`);
-                }}
-                key={index}
-              >
-                <p className={styles.img_title}>{item.name}</p>
-                <img
-                  className={styles.img}
-                  src={handleImg(item)}
-                  alt="fitness"
-                />
-              </div>
-            ))}
-          </div>
+          <Sticker />
         </div>
-        <footer>
-          <div onClick={() => handleTop()}>
-            <ButtonArrow text="Наверх ↑" />
-          </div>
-        </footer>
+        <div className={styles.content_main}>
+          {allCourses?.map((item, index) => (
+            <div
+              className={styles.img_box}
+              onClick={() => {
+                navigate(`/course/${item._id}`);
+              }}
+              key={index}
+            >
+              <p className={styles.img_title}>{item.name}</p>
+              <img className={styles.img} src={handleImg(item)} alt="fitness" />
+            </div>
+          ))}
+        </div>
       </div>
+      <footer className={styles.footer}>
+        <div onClick={() => handleTop()}>
+          <ButtonArrow text="Наверх ↑" />
+        </div>
+      </footer>
     </section>
   );
 }

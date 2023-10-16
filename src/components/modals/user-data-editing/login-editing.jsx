@@ -46,7 +46,6 @@ const LoginEditing = ({ show, setShow }) => {
   // };
 
   const saveData = () => {
-    console.log(login);
     if (login?.length === 0) {
       setError("Введите логин");
     } else if (repeatLogin?.length === 0) {
