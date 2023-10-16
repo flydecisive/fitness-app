@@ -1,5 +1,7 @@
 .main {
   background: #271a58;
+  background-size: cover;
+  min-height: 100vh;
 }
 
 .img_box {
@@ -66,4 +68,12 @@
   border-radius: 30px;
   width: 360px;
   height: 480px;
+}
+
+.footer {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 0);
+  margin-bottom: 20px;
 }

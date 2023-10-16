@@ -36,13 +36,13 @@ export const signInUser = async (email, password) => {
 };
 
 export const changeLogin = async (email) => {
-  const user = getAuth().currentUser;
+  const user = getAuth(app).currentUser;
 
   return updateEmail(user, email);
 };
 
 export const changePassword = async (newPassword) => {
-  const user = getAuth().currentUser;
+  const user = getAuth(app).currentUser;
 
   return updatePassword(user, newPassword);
 };
