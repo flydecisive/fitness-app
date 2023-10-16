@@ -6,24 +6,17 @@ import RecordForm from "./components/record-form/record-form";
 import Header from "../../../components/header/header";
 import CourseBanner from "../../../components/course-banner/course-banner";
 import DirectionColumn from "./components/direction-column/direction-column";
+import { separateData } from "../../../helpers";
+import { useUidContext } from "../../../contexts/user";
 
-export function DisallowedCourse({ course }) {
+export function DisallowedCourse({ course, nameInDB, usersCoursesFromApi }) {
+  const { uid } = useUidContext();
   const reasonsData = course?.reasons;
   let reasons;
   if (reasonsData) {
     reasons = reasonsData.map((reason, index) => {
       return <Reason number={index + 1} text={reason} key={index} />;
     });
-  }
-
-  function separateData(data) {
-    const separatedData = [];
-    const size = 3;
-    for (let i = 0; i < data.length / size; i++) {
-      separatedData[i] = data.slice(i * size, i * size + size);
-    }
-
-    return separatedData;
   }
 
   const directionsData = course?.directions;
@@ -54,7 +47,12 @@ export function DisallowedCourse({ course }) {
         </div>
       </div>
       <p className={`${styles.text} small-text`}>{course?.description}</p>
-      <RecordForm courseId={course?._id} />
+      <RecordForm
+        courseId={course?._id}
+        uid={uid}
+        nameInDB={nameInDB}
+        usersCoursesFromApi={usersCoursesFromApi}
+      />
     </div>
   );
 }

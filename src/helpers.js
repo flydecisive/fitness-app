@@ -20,3 +20,13 @@ export function createValidVideoUrl(url) {
 
   return `https://www.youtube.com/embed${lastPath}`;
 }
+
+export function separateData(data) {
+  const separatedData = [];
+  const size = 3;
+  for (let i = 0; i < data.length / size; i++) {
+    separatedData[i] = data.slice(i * size, i * size + size);
+  }
+
+  return separatedData;
+}

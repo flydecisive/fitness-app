@@ -22,6 +22,8 @@ function AuthorizationPage() {
   const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
 
+  // добавить курс для добавления после авторизации
+
   const toggleNotice = (text) => {
     setNoticeText(text);
     setShowNotice(true);
