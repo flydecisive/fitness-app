@@ -28,7 +28,14 @@ const ProfilePage = () => {
 
   useEffect(() => {
     getUsersWorkouts().then((responseData) => {
-      setUsersCoursesFromApi(responseData[uid]?.courses);
+      const keys = Object.keys(responseData);
+      let data;
+      for (let i = 0; i < keys.length; i++) {
+        if (responseData[keys[i]]._id === uid) {
+          data = responseData[keys[i]];
+        }
+      }
+      setUsersCoursesFromApi(data?.courses);
     });
   }, []);
 

@@ -3,11 +3,24 @@ import Button from "../../../../../components/button/button";
 import { ReactComponent as Call } from "../../../../../assets/img/call.svg";
 import { useNavigate } from "react-router";
 import { useAllowedContext } from "../../../../../contexts/allowed";
-// import database from "../../../../../firebase";
+import { addUserCourses } from "../../../../../api";
+import { updateUserCourses } from "../../../../../api";
 
-function RecordForm({ courseId }) {
+function RecordForm({ courseId, uid, nameInDB, usersCoursesFromApi }) {
   const navigate = useNavigate();
   const { isAllowed } = useAllowedContext();
+  const courses = usersCoursesFromApi;
+
+  const addCourseAndNavigate = (courseId, uid, nameInDB, courses) => {
+    if (nameInDB) {
+      courses.push(courseId);
+      updateUserCourses(nameInDB, courses);
+      navigate("/profile");
+    } else {
+      addUserCourses(uid, courseId);
+      navigate("/profile");
+    }
+  };
 
   return (
     <div className={styles.container}>
@@ -21,7 +34,9 @@ function RecordForm({ courseId }) {
           color={"purple"}
           text={"Записаться на тренировку"}
           onClick={() => {
-            isAllowed ? navigate(`/profile`) : navigate("/login");
+            isAllowed
+              ? addCourseAndNavigate(courseId, uid, nameInDB, courses)
+              : navigate("/login");
           }}
         />
       </div>

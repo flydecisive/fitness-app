@@ -18,10 +18,19 @@ function CoursePage() {
   const { course, setCourse } = useCourseContext();
   const [usersCoursesFromApi, setUsersCoursesFromApi] = useState();
   const [isUserCourse, setIsUserCourse] = useState(false);
+  const [nameInDB, setNameInDB] = useState();
 
   useEffect(() => {
     getUsersWorkouts().then((responseData) => {
-      setUsersCoursesFromApi(responseData[uid]?.courses);
+      const keys = Object.keys(responseData);
+      let data;
+      for (let i = 0; i < keys.length; i++) {
+        if (responseData[keys[i]]._id === uid) {
+          setNameInDB(keys[i]);
+          data = responseData[keys[i]];
+        }
+      }
+      setUsersCoursesFromApi(data?.courses);
     });
   }, []);
 
@@ -44,7 +53,11 @@ function CoursePage() {
   return isAllowed && isUserCourse ? (
     <AllowedCourse course={course} />
   ) : (
-    <DisallowedCourse course={course} />
+    <DisallowedCourse
+      course={course}
+      nameInDB={nameInDB}
+      usersCoursesFromApi={usersCoursesFromApi}
+    />
   );
 }
 
