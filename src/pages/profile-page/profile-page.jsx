@@ -28,7 +28,7 @@ const ProfilePage = () => {
 
   useEffect(() => {
     getUsersWorkouts().then((responseData) => {
-      setUsersCoursesFromApi(responseData[uid].courses);
+      setUsersCoursesFromApi(responseData[uid]?.courses);
     });
   }, []);
 
@@ -108,24 +108,28 @@ const ProfilePage = () => {
         <div className={styles.content_profile}>
           <p className={styles.content_title}>Мои курсы</p>
           <div className={styles.content_main}>
-            {usersCourses?.map((item, i) => (
-              <div className={styles.img_box} key={i}>
-                <p className={styles.img_title}>{item.name}</p>
-                <img
-                  className={styles.img}
-                  src={handleImg(item)}
-                  alt="fitness_img"
-                />
-                <div
-                  onClick={() => {
-                    navigate(`/course/${item._id}`);
-                  }}
-                  className={styles.button}
-                >
-                  <ButtonArrow text="Перейти →" />
+            {usersCourses ? (
+              usersCourses?.map((item, i) => (
+                <div className={styles.img_box} key={i}>
+                  <p className={styles.img_title}>{item.name}</p>
+                  <img
+                    className={styles.img}
+                    src={handleImg(item)}
+                    alt="fitness_img"
+                  />
+                  <div
+                    onClick={() => {
+                      navigate(`/course/${item._id}`);
+                    }}
+                    className={styles.button}
+                  >
+                    <ButtonArrow text="Перейти →" />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="small-text">Курсы еще не были добавлены</p>
+            )}
           </div>
         </div>
       </div>
