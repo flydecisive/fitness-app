@@ -1,10 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import styles from "./chose-training.module.css";
 
-const ChoseTraining = ({ data, setShow, show, setChoosedWorkout }) => {
-  const [indexArray, setIndexArray] = useState([]);
-
+const ChoseTraining = ({
+  data,
+  setShow,
+  show,
+  setChoosedWorkout,
+  userCompletedWorkouts,
+}) => {
   const modalRef = useRef();
   // Закрытие окна
   const closeModalOnClickOut = (e) => {
@@ -27,14 +31,6 @@ const ChoseTraining = ({ data, setShow, show, setChoosedWorkout }) => {
     };
   }, [show]);
 
-  const handleActive = (i) => {
-    if (indexArray.includes(i)) {
-      setIndexArray((indexArray) => indexArray.filter((el) => el !== i));
-    } else {
-      setIndexArray([...indexArray, i]);
-    }
-  };
-
   if (show) {
     return (
       <div ref={modalRef} className={styles.wrapper}>
@@ -43,23 +39,23 @@ const ChoseTraining = ({ data, setShow, show, setChoosedWorkout }) => {
           <div className={styles["inputs_container"]}>
             {data?.map((item, i) => (
               <div className={styles.item_box} key={i}>
-                {indexArray.includes(i)
-                  ? // <div className={styles.item_box_svg}>
-                    //   <img src="/img/active_item.svg" alt="active_item" />
-                    // </div>
-                    ""
-                  : ""}
+                {userCompletedWorkouts?.includes(item._id) ? (
+                  <div className={styles.item_box_svg}>
+                    <img src="/img/active_item.svg" alt="active_item" />
+                  </div>
+                ) : (
+                  ""
+                )}
                 <div
                   onClick={(e) => {
                     e.stopPropagation();
-                    handleActive(i);
                     setChoosedWorkout(item);
-                    // localStorage.setItem("workout-id", item._id);
                     setShow(false);
                   }}
                   className={
-                    // indexArray.includes(i) ? styles.item_active : styles.item
-                    styles.item
+                    userCompletedWorkouts?.includes(item._id)
+                      ? styles.item_active
+                      : styles.item
                   }
                 >
                   <p className={styles.item_title}>
