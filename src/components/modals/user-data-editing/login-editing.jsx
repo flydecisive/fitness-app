@@ -7,16 +7,12 @@ import styles from "./login-editing.module.css";
 // import { useAllowedContext } from "../../../contexts/allowed";
 // import { useUidContext } from "../../../contexts/user";
 import { changeLogin } from "../../../firebase";
-import { getAuth, updateEmail } from "firebase/auth";
 
 const LoginEditing = ({ show, setShow }) => {
   const [login, setLogin] = useState("");
   const [repeatLogin, setRepeatLogin] = useState("");
   const [error, setError] = useState(null);
   const modalRefLogin = useRef();
-
-  const auth = getAuth();
-  const user = auth.currentUser;
 
   const closeModalOnClickOut = (e) => {
     if (
@@ -57,7 +53,7 @@ const LoginEditing = ({ show, setShow }) => {
     } else if (repeatLogin !== login) {
       setError("Введенные логины отличаются");
     } else {
-      updateEmail(user, login)
+      changeLogin(login)
         .then((response) => {
           // console.log(response);
           return response.user;
