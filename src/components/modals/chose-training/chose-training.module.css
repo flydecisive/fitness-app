@@ -52,8 +52,8 @@
   cursor: pointer;
 }
 .item_box_svg {
-  right: 15px;
-  top: 15px;
+  right: -8px;
+  top: -5px;
   position: absolute;
 }
 
