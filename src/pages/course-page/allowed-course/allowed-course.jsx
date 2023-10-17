@@ -173,17 +173,17 @@ function AllowedCourse({ course, nameInDB }) {
         ></iframe>
       </div>
       <div className={styles.content}>
-        <div className={styles.exercices}>
+        <div className={styles.exercises}>
           <h3 className={styles.title}>Упражнения</h3>
           {choosedWorkout?.exercises ? (
-            <>
+            <div className={styles["exercises-wrapper"]}>
               <ul className={`${styles.list} small-text`}>{exercises}</ul>
               <Button
                 text={"Заполнить свой прогресс"}
                 color={"purple"}
                 onClick={() => setShow(true)}
               />
-            </>
+            </div>
           ) : (
             <p className="small-text">Нет доступных упражнений</p>
           )}
