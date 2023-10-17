@@ -6,7 +6,6 @@ import ButtonArrow from "../../components/button/button-arrow";
 import { useEffect, useState } from "react";
 import PasswordEditing from "../../components/modals/user-data-editing/password-editing";
 import LoginEditing from "../../components/modals/user-data-editing/login-editing";
-// import ChoseTraining from "../../components/modals/chose-training/chose-training";
 import { useEmailContext } from "../../contexts/user";
 import { useSelector } from "react-redux";
 import { getUsersWorkouts } from "../../api";
@@ -21,8 +20,6 @@ const ProfilePage = () => {
   const [usersCourses, setUsersCourses] = useState();
   const [modalPasswordOpen, setModalPasswordOpen] = useState(false);
   const [modalLoginOpen, setModalLoginOpen] = useState(false);
-  // const [modalTrainingsOpen, setModalTrainingsOpen] = useState(false);
-  // const [itemTrain, setItemTrain] = useState();
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
 
@@ -61,17 +58,11 @@ const ProfilePage = () => {
     setModalPasswordOpen(true);
     setShow(true);
   };
-  // const handleOpenTrainings = (i) => {
-  //   setModalTrainingsOpen(true);
-  //   setItemTrain(usersCourses[i]);
-  //   setShow(true);
-  // };
 
   useEffect(() => {
     if (show === false) {
       setModalLoginOpen(false);
       setModalPasswordOpen(false);
-      // setModalTrainingsOpen(false);
     }
   }, [show]);
 
@@ -80,11 +71,7 @@ const ProfilePage = () => {
       return <PasswordEditing show={show} setShow={setShow} />;
     } else if (modalLoginOpen) {
       return <LoginEditing show={show} setShow={setShow} />;
-    }
-    // else if (modalTrainingsOpen) {
-    //   return <ChoseTraining data={itemTrain} setShow={setShow} show={show} />;
-    // }
-    else {
+    } else {
       return "";
     }
   }

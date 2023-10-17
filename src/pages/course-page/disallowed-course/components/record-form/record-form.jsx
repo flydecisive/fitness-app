@@ -14,11 +14,17 @@ function RecordForm({ courseId, uid, nameInDB, usersCoursesFromApi }) {
   const addCourseAndNavigate = (courseId, uid, nameInDB, courses) => {
     if (nameInDB) {
       courses.push(courseId);
-      updateUserCourses(nameInDB, courses);
-      navigate("/profile");
+      updateUserCourses(nameInDB, courses).then((response) => {
+        if (response) {
+          navigate("/profile");
+        }
+      });
     } else {
-      addUserCourses(uid, courseId);
-      navigate("/profile");
+      addUserCourses(uid, courseId).then((response) => {
+        if (response) {
+          navigate("/profile");
+        }
+      });
     }
   };
 
