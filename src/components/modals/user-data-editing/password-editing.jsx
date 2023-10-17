@@ -33,10 +33,8 @@ const PasswordEditing = ({ show, setShow }) => {
     } else if (repeatPassword !== password) {
       setError("Введенные пароли отличаются");
     } else {
-      console.log(password);
       changePassword(password)
         .then((response) => {
-          console.log(response);
           return response.user;
         })
         .catch((err) => {
