@@ -3,8 +3,9 @@ import styles from "./progress-form.module.css";
 import Button from "../button/button";
 import Input from "../input/input";
 import { useEffect, useRef, useState } from "react";
+import PushNotice from "../push-notice/push-notice";
 
-const values = [];
+let values = [];
 
 function ProgressForm({
   show,
@@ -15,6 +16,18 @@ function ProgressForm({
 }) {
   const modalRefProgress = useRef();
   const [formItems, setFormItems] = useState([]);
+  const [showNotice, setShowNotice] = useState(false);
+  const [noticeText, setNoticeText] = useState("");
+
+  const hideNotice = () => {
+    setShowNotice(false);
+  };
+
+  const toggleNotice = (text) => {
+    setNoticeText(text);
+    setShowNotice(true);
+    setTimeout(hideNotice, 3000);
+  };
 
   useEffect(() => {
     if (exercisesNames) {
@@ -70,20 +83,35 @@ function ProgressForm({
 
   if (show) {
     return (
-      <div ref={modalRefProgress} className={styles.wrapper}>
-        <h2 className={styles.heading}>Мой прогресс</h2>
-        {formItems}
+      <>
+        {showNotice ? (
+          <PushNotice text={noticeText} setShowNotice={setShowNotice} />
+        ) : (
+          ""
+        )}
+        <div ref={modalRefProgress} className={styles.wrapper}>
+          <h2 className={styles.heading}>Мой прогресс</h2>
+          {formItems}
 
-        <Button
-          text={"Отправить"}
-          color={"purple"}
-          onClick={() => {
-            setShow(false);
-            setProgress(values);
-            setShowCongrat(true);
-          }}
-        />
-      </div>
+          <Button
+            text={"Отправить"}
+            color={"purple"}
+            onClick={() => {
+              const data = values.filter(function (el) {
+                return el !== "";
+              });
+              if (data.length === formItems.length) {
+                setShow(false);
+                setProgress(values);
+                values = [];
+                setShowCongrat(true);
+              } else {
+                toggleNotice("Заполните все поля");
+              }
+            }}
+          />
+        </div>
+      </>
     );
   }
 }

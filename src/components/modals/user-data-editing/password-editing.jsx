@@ -32,10 +32,10 @@ const PasswordEditing = ({ show, setShow }) => {
       setError("Введите повторный пароль");
     } else if (repeatPassword !== password) {
       setError("Введенные пароли отличаются");
-    } else {      
+
+    } else {
       changePassword(password)
         .then((response) => {
-          console.log(response);
           return response.user;
         })
         .catch((err) => {

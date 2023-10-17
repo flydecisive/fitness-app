@@ -51,7 +51,7 @@ function CoursePage() {
   }, [allCourses]);
 
   return isAllowed && isUserCourse ? (
-    <AllowedCourse course={course} />
+    <AllowedCourse course={course} nameInDB={nameInDB} />
   ) : (
     <DisallowedCourse
       course={course}

@@ -25,7 +25,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const db = getFirestore(app);
 
 export const createUser = async (email, password) => {
   return createUserWithEmailAndPassword(getAuth(app), email, password);
@@ -46,13 +45,3 @@ export const changePassword = async (newPassword) => {
 
   return updatePassword(user, newPassword);
 };
-
-// async function getUsersCourses(db) {
-//   const usersCol = collection(db, "users");
-//   const usersSnapshot = await getDocs(usersCol);
-//   const usersList = usersSnapshot.docs.map((doc) => doc.data());
-//   return usersList;
-// }
-
-// const usersCourses = await getUsersCourses(db);
-// console.log(usersCourses);

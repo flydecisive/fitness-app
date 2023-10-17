@@ -9,8 +9,9 @@ import { getWorkouts } from "../../../api";
 import ChoseTraining from "../../../components/modals/chose-training/chose-training";
 import Congrat from "../../../components/congrat/congrat";
 import { createValidVideoUrl } from "../../../helpers";
+import { getCompletedWorkouts, setCompletedWorkouts } from "../../../api";
 
-function AllowedCourse({ course }) {
+function AllowedCourse({ course, nameInDB }) {
   const [progress, setProgress] = useState(0);
   const [choosedWorkout, setChoosedWorkout] = useState();
   const [currentWorkouts, setCurrentWorkouts] = useState();
@@ -20,14 +21,21 @@ function AllowedCourse({ course }) {
   const [exercises, setExercises] = useState([]);
   const [exercisesNames, setExercisesNames] = useState();
   const [showCongrat, setShowCongrat] = useState(false);
+  const [userCompletedWorkouts, setUserCompletedWorkouts] = useState();
 
   const courseWorkouts = course?.workouts;
+
+  useEffect(() => {
+    getCompletedWorkouts().then((responseData) => {
+      setUserCompletedWorkouts(responseData[nameInDB]?.completed_workouts);
+    });
+  }, []);
 
   useEffect(() => {
     if (choosedWorkout?.exercises) {
       const keys = Object.keys(choosedWorkout.exercises);
       setExercisesNames(keys);
-      const exercisesForProgressData = keys.map((elem, index) => {
+      const exercisesForProgressData = keys?.map((elem, index) => {
         return (
           <div key={index + 10} className={styles["progress-item-wrapper"]}>
             <p>{elem.slice(0, elem.indexOf("("))}</p>
@@ -42,7 +50,7 @@ function AllowedCourse({ course }) {
         );
       });
 
-      const exercisesData = keys.map((elem, index) => {
+      const exercisesData = keys?.map((elem, index) => {
         return <li key={index}>{elem}</li>;
       });
 
@@ -52,8 +60,70 @@ function AllowedCourse({ course }) {
   }, [choosedWorkout, progress]);
 
   useEffect(() => {
+    let keys;
+    if (choosedWorkout) {
+      if (!choosedWorkout?.exercises) {
+        getCompletedWorkouts().then((responseData) => {
+          const allCompletedWorkouts =
+            responseData[nameInDB]?.completed_workouts;
+
+          if (allCompletedWorkouts) {
+            if (!allCompletedWorkouts.includes(choosedWorkout?._id)) {
+              allCompletedWorkouts.push(choosedWorkout?._id);
+              setCompletedWorkouts(nameInDB, allCompletedWorkouts);
+            }
+          } else {
+            setCompletedWorkouts(nameInDB, [choosedWorkout?._id]);
+          }
+        });
+      }
+    }
+    if (progress && choosedWorkout) {
+      const progressData = progress?.filter(function (el) {
+        return el !== "";
+      });
+
+      const completedData = [];
+
+      keys = Object.keys(choosedWorkout?.exercises);
+      for (let i = 0; i < keys.length; i++) {
+        if (choosedWorkout?.exercises[keys[i]] <= progressData[i]) {
+          completedData.push(true);
+        } else {
+          completedData.push(false);
+        }
+      }
+
+      let count = 0;
+      completedData.forEach((el) => {
+        if (el === true) {
+          count += 1;
+        }
+      });
+
+      const isCompletedWorkout = count === completedData.length ? true : false;
+
+      if (isCompletedWorkout) {
+        getCompletedWorkouts().then((responseData) => {
+          const allCompletedWorkouts =
+            responseData[nameInDB]?.completed_workouts;
+
+          if (allCompletedWorkouts) {
+            if (!allCompletedWorkouts.includes(choosedWorkout?._id)) {
+              allCompletedWorkouts.push(choosedWorkout?._id);
+              setCompletedWorkouts(nameInDB, allCompletedWorkouts);
+            }
+          } else {
+            setCompletedWorkouts(nameInDB, [choosedWorkout?._id]);
+          }
+        });
+      }
+    }
+  }, [progress, choosedWorkout]);
+
+  useEffect(() => {
     for (let i = 0; i < currentWorkouts?.length; i++) {
-      if (currentWorkouts[i]._id === choosedWorkout?._id) {
+      if (currentWorkouts[i]?._id === choosedWorkout?._id) {
         setWorkoutIndex(i);
       }
     }
@@ -103,17 +173,17 @@ function AllowedCourse({ course }) {
         ></iframe>
       </div>
       <div className={styles.content}>
-        <div className={styles.exercices}>
+        <div className={styles.exercises}>
           <h3 className={styles.title}>Упражнения</h3>
           {choosedWorkout?.exercises ? (
-            <>
+            <div className={styles["exercises-wrapper"]}>
               <ul className={`${styles.list} small-text`}>{exercises}</ul>
               <Button
                 text={"Заполнить свой прогресс"}
                 color={"purple"}
                 onClick={() => setShow(true)}
               />
-            </>
+            </div>
           ) : (
             <p className="small-text">Нет доступных упражнений</p>
           )}
@@ -137,30 +207,6 @@ function AllowedCourse({ course }) {
           ) : (
             <p className="small-text">Нет доступных упражнений</p>
           )}
-          {/* <p>Наклон вперед</p>
-            <ExerciseProgress
-              id="1"
-              color={"#565eef"}
-              value={progress[1]}
-              max={10}
-              bgColor={"#edecff"}
-            />
-            <p>Наклон назад</p>
-            <ExerciseProgress
-              id="2"
-              color={"#ff6d00"}
-              value={progress[2]}
-              max={10}
-              bgColor={"#fff2e0"}
-            />
-            <p>Поднятие ног, согнутых в коленях</p>
-            <ExerciseProgress
-              id="3"
-              color={"#9a48f1"}
-              value={progress[3]}
-              max={5}
-              bgColor={"#f9ebff"}
-            /> */}
         </div>
       </div>
     </div>
@@ -170,6 +216,7 @@ function AllowedCourse({ course }) {
       show={show}
       setShow={setShow}
       setChoosedWorkout={setChoosedWorkout}
+      userCompletedWorkouts={userCompletedWorkouts}
     />
   );
 }
