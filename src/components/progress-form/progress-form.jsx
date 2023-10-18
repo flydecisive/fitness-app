@@ -42,7 +42,7 @@ function ProgressForm({
               Сколько раз вы сделали {elem}?
             </label>
             <Input
-              type={"text"}
+              type={"number"}
               placeholder={"Введите значение"}
               id={index + 1}
               onInput={(e) => inputHandler(e)}

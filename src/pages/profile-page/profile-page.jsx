@@ -50,10 +50,10 @@ const ProfilePage = () => {
     }
   }, [usersCoursesFromApi]);
 
-  const handleOpenLogin = () => {
-    setModalLoginOpen(true);
-    setShow(true);
-  };
+  // const handleOpenLogin = () => {
+  //   setModalLoginOpen(true);
+  //   setShow(true);
+  // };
   const handleOpenPassword = () => {
     setModalPasswordOpen(true);
     setShow(true);
@@ -87,11 +87,11 @@ const ProfilePage = () => {
             <p className={styles.content_user_item}>Пароль: ********</p>
           </div>
           <div className={styles.content_buttons}>
-            <Button
+            {/* <Button
               onClick={handleOpenLogin}
               text="Редактировать логин"
               color={"purple"}
-            />
+            /> */}
             <Button
               onClick={handleOpenPassword}
               text="Редактировать пароль"
