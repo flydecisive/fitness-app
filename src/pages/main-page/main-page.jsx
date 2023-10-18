@@ -5,7 +5,6 @@ import ButtonArrow from "../../components/button/button-arrow";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { handleImg } from "../../helpers";
-import styled from "styled-components";
 
 function MainPage() {
   const handleTop = () => {
